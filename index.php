@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     mysqli_stmt_close($stmt);
                 }
             }
-        }   
+        }
     };
 
     if ($patientLoginAttempt) {
@@ -246,12 +246,12 @@ mysqli_close($link);
                                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                     <div class="form-group ">
                                         <label>Patient's Email:</label>
-                                        <input type="text" name="patientEmail" class="form-control <?php echo (!empty($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientEmail; ?>">
+                                        <input type="text" name="patientEmail" placeholder = "Enter Email Here" class="form-control <?php echo (!empty($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientEmail; ?>">
                                         <span class="invalid-feedback"><?php echo $patientEmail_err; ?></span>
                                     </div>
                                     <div class="form-group">
                                         <label>Password:</label>
-                                        <input type="password" name="patientPassword" class="form-control <?php echo (!empty($providerPassword_err)) ? 'is-invalid' : ''; ?>">
+                                        <input type="password" name="patientPassword" placeholder = "Enter Password Here" class="form-control <?php echo (!empty($providerPassword_err)) ? 'is-invalid' : ''; ?>">
                                         <span class="invalid-feedback"><?php echo $patientPassword_err; ?></span>
                                     </div>
                                     <div class="form-group" style="display:flex; justify-content: center;">
