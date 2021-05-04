@@ -1,5 +1,6 @@
 <?php
 include('header.php');
+$providerEmail = $providerPassword = $providerPassword = $patientEmail = "";
 
 
 // Initialize the session
@@ -15,8 +16,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         header("location: provider.php");
         exit;
     }
-
-
 }
 
 // Include config file
@@ -225,10 +224,10 @@ mysqli_close($link);
                     </h2>
                     <ul class="nav nav-pills mb-3 justify-content-md-center" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-patient-tab" data-bs-toggle="pill" data-bs-target="#pills-patient" type="button" role="tab" aria-controls="pills-patient" aria-selected="<?php echo (isset($_POST["Provider_Login"])) ? 'is-invalid' : ''; ?>"">Patient</button>
+                            <button class="nav-link active" id="pills-patient-tab" data-bs-toggle="pill" data-bs-target="#pills-patient" type="button" role="tab" aria-controls="pills-patient" aria-selected="<?php echo (isset($_POST["Provider_Login"])) ? 'false' : 'true'; ?>">Patient</button>
                         </li>
                         <li class=" nav-item" role="presentation">
-                                <button class="nav-link" id="pills-provider-tab" data-bs-toggle="pill" data-bs-target="#pills-provider" type="button" role="tab" aria-controls="pills-provider" aria-selected="false">Provider</button>
+                                <button class="nav-link" id="pills-provider-tab" data-bs-toggle="pill" data-bs-target="#pills-provider" type="button" role="tab" aria-controls="pills-provider" aria-selected="<?php echo (isset($_POST["Provider_Login"])) ? 'true' : 'false'; ?>">Provider</button>
                         </li>
                     </ul>
 
