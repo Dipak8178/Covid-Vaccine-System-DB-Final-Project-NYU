@@ -7,6 +7,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+// stop patients from accessing provider page
+if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true){
+    header("location: patient.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
