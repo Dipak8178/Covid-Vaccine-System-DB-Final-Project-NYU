@@ -6,7 +6,6 @@ $providerEmail = $providerPassword = $patientEmail = $patientPassword ="";
 $providerEmail_err = $providerPassword_err = $ProviderLoginError = "";
 $patientEmail_err = $patientPassword_err = $PatientLoginError = "";
 
-
 // Initialize the session
 session_start();
 
@@ -24,8 +23,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
 // Include config file
 require_once "config.php";
-
-// // Define variables and initialize with empty values
+// Define variables and initialize with empty values
 // $providerEmail = $providerPassword = "";
 // $providerEmail_err = $providerPassword_err = $login_err = "";
 
@@ -131,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Validate credentials
-        if(!$err_pat){
+        if(!$pat_err){
             if (empty($patientEmail_err) && empty($password_err)) {
                 // Prepare a select statement
                 $sql = "SELECT patientId, patientEmail, patientName, patientPassword FROM patient WHERE patientEmail = ?";
