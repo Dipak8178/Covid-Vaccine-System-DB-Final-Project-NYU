@@ -108,7 +108,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check input errors before inserting in database
         if (empty($providerEmail_err) && empty($password_err) && empty($confirm_password_err)) {
 
-            echo "No errors before inserting into database\n\n\n\n\n";
             // Prepare an insert statement
             $sql = "INSERT INTO Provider (providerName, providerAddress, providerLatitude, providerLongitude,
                                     providerPhone, providerType, providerEmail, providerPassword
@@ -138,7 +137,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $param_providerType = $providerType;
                 $param_providerEmail = $providerEmail;
                 $param_providerPassword = password_hash($providerPassword, PASSWORD_DEFAULT); // Creates a password hash
-                echo "Here";
                 // Attempt to execute the prepared statement
                 if (mysqli_stmt_execute($stmt)) {
                     // Redirect to login page
