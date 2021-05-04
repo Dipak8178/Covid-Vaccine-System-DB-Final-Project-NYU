@@ -1,6 +1,10 @@
 <?php
 include('header.php');
-$providerEmail = $providerPassword = $providerPassword = $patientEmail = "";
+
+// Define variables and initialize with empty values
+$providerEmail = $providerPassword = $patientEmail = $patientPassword ="";
+$providerEmail_err = $providerPassword_err = $ProviderLoginError = "";
+$patientEmail_err = $patientPassword_err = $PatientLoginError = "";
 
 
 // Initialize the session
@@ -21,9 +25,9 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 // Include config file
 require_once "config.php";
 
-// Define variables and initialize with empty values
-$providerEmail = $providerPassword = "";
-$providerEmail_err = $providerPassword_err = $login_err = $providerName = "";
+// // Define variables and initialize with empty values
+// $providerEmail = $providerPassword = "";
+// $providerEmail_err = $providerPassword_err = $login_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -89,12 +93,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     header("location: provider.php");
                                 } else {
                                     // Password is not valid, display a generic error message
-                                    $login_err = "Invalid Email or password.";
+                                    $ProviderLoginError = "Invalid Email or password.";
                                 }
                             }
                         } else {
                             // Email doesn't exist, display a generic error message
-                            $login_err = "Invalid Email or password.";
+                            $procvider_login_err = "Invalid Email or password.";
                         }
                     } else {
                         echo "Oops! Something went wrong. Please try again later.";
@@ -164,12 +168,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     header("location: welcome.php"); //need to change this
                                 } else {
                                     // Password is not valid, display a generic error message
-                                    $login_err = "Invalid Email or password.";
+                                    $PatientLoginError = "Invalid Email or password.";
                                 }
                             }
                         } else {
                             // Email doesn't exist, display a generic error message
-                            $login_err = "Invalid Email or password.";
+                            $PatientLoginError = "Invalid Email or password.";
                         }
                     } else {
                         echo "Oops! Something went wrong. Please try again later.";
@@ -224,10 +228,10 @@ mysqli_close($link);
                     </h2>
                     <ul class="nav nav-pills mb-3 justify-content-md-center" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-patient-tab" data-bs-toggle="pill" data-bs-target="#pills-patient" type="button" role="tab" aria-controls="pills-patient" aria-selected="<?php echo (isset($_POST["Provider_Login"])) ? 'false' : 'true'; ?>">Patient</button>
+                            <button class="nav-link <?php echo (isset($providerLoginAttempt)) ? '' : 'active'; ?>" id="pills-patient-tab" data-bs-toggle="pill" data-bs-target="#pills-patient" type="button" role="tab" aria-controls="pills-patient" aria-selected="<?php echo (isset($providerLoginAttempt)) ? 'false' : 'true'; ?>">Patient</button>
                         </li>
                         <li class=" nav-item" role="presentation">
-                                <button class="nav-link" id="pills-provider-tab" data-bs-toggle="pill" data-bs-target="#pills-provider" type="button" role="tab" aria-controls="pills-provider" aria-selected="<?php echo (isset($_POST["Provider_Login"])) ? 'true' : 'false'; ?>">Provider</button>
+                                <button class="nav-link <?php echo (isset($providerLoginAttempt)) ? 'active' : ''; ?>" id="pills-provider-tab" data-bs-toggle="pill" data-bs-target="#pills-provider" type="button" role="tab" aria-controls="pills-provider" aria-selected="<?php echo (isset($providerLoginAttempt)) ? 'true' : 'false'; ?>">Provider</button>
                         </li>
                     </ul>
 
@@ -237,7 +241,7 @@ mysqli_close($link);
 
                                 <?php
                                 if (!empty($login_err)) {
-                                    echo '<div class="alert alert-danger">' . $login_err . '</div>';
+                                    echo '<div class="alert alert-danger">' . $PatientLoginError . '</div>';
                                 }
                                 ?>
 
@@ -263,7 +267,7 @@ mysqli_close($link);
                             <div class="tab-pane fade" id="pills-provider" role="tabpanel" aria-labelledby="pills-provider-tab">
                                 <?php
                                 if (!empty($login_err)) {
-                                    echo '<div class="alert alert-danger">' . $login_err . '</div>';
+                                    echo '<div class="alert alert-danger">' . $ProviderLoginError . '</div>';
                                 }
                                 ?>
 
