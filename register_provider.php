@@ -137,10 +137,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $param_providerType = $providerType;
                 $param_providerEmail = $providerEmail;
                 $param_providerPassword = password_hash($providerPassword, PASSWORD_DEFAULT); // Creates a password hash
-<<<<<<< HEAD
-
-=======
->>>>>>> 0e03c49ed67ccffe1109b7442ce3fa40c622865e
                 // Attempt to execute the prepared statement
                 if (mysqli_stmt_execute($stmt)) {
                     // Redirect to login page
