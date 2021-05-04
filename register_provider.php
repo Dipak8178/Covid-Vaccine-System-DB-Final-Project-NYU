@@ -5,6 +5,7 @@ include('header.php');
 
 // Define variables and initialize with empty values
 $providerEmail_err = $password_err = $confirm_password_err = $providerAddress_err = $providerPhone_err = $providerName_err = $providerType_err = "";
+$providerEmail = $providerPassword = $confirm_password = $providerAddress = $providerPhone = $providerName = $providerType = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -85,7 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_close($stmt);
         }
     }
-
 
     if (!$err) {
         $providerName = trim($_POST["providerName"]);
