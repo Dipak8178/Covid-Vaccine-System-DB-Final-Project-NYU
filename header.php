@@ -25,7 +25,7 @@
 			?>
 				<ul class="navbar-nav ms-auto flex" style="flex-direction: row;">
 					<li class="nav-item">
-						<a href="#" class="nav-link m-2 menu-item nav-active">Log In</a>
+						<a href="index.php" class="nav-link m-2 menu-item nav-active">Log In</a>
 					</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link m-2 menu-item">Register</a>
