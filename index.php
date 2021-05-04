@@ -271,7 +271,7 @@ mysqli_close($link);
                                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                     <div class="form-group ">
                                         <label>Provider's Email:</label>
-                                        <input type="text" name="providerEmail" class="form-control <?php echo (!empty($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $Email; ?>">
+                                        <input type="text" name="providerEmail" class="form-control <?php echo (!empty($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerEmail; ?>">
                                         <span class="invalid-feedback"><?php echo $providerEmail_err; ?></span>
                                     </div>
                                     <div class="form-group">
