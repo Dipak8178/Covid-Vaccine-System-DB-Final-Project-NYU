@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $_SESSION["providerName"] = $providerName;
 
                                     // Redirect user to welcome page
-                                    header("location: welcome.php");
+                                    header("location: provider.php");
                                 } else {
                                     // Password is not valid, display a generic error message
                                     $login_err = "Invalid Email or password.";
@@ -162,7 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $_SESSION["patientName"] = $patientName;
 
                                     // Redirect user to welcome page
-                                    header("location: welcome.php");
+                                    header("location: welcome.php"); //need to change this
                                 } else {
                                     // Password is not valid, display a generic error message
                                     $login_err = "Invalid Email or password.";
