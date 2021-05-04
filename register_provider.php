@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (mysqli_stmt_execute($stmt)) {
                     // Redirect to login page
                     echo "Login Succesfull";
-                    header("location: register_login.php.php");
+                    header("location: index.php");
                 } else {
                     echo "Oops! Something went wrong. Please try again later. after validate success";
                 }
@@ -234,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <input type="submit" class="btn btn-primary" value="Submit" onclick="">
                                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
                             </div>
-                            <p>Already have an account? <a href="register_login.php">Log In</a>.</p>
+                            <p>Already have an account? <a href="index.php">Log In</a>.</p>
                         </form>
                     </article>
                 </div>
