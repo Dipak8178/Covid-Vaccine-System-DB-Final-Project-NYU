@@ -3,63 +3,53 @@
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$username =  $confirm_password = $patientName = $patientPassword = $ssn = $dob =
-$patientAddress = $patientLatitude = $patientLongitude = $patientPhone = $distancePreference = "";
+$username =  $confirm_password = $providerName = $providerPassword =
+$providerAddress = $providerLatitude = $providerLongitude = $providerPhone = $providerType = "";
 $username_err = $password_err = $confirm_password_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    if(empty(trim($_POST["patientName"]))){
-        $username_err = "Please enter a first name.";
+    if(empty(trim($_POST["providerName"]))){
+        $username_err = "Please enter a full name.";
     }
-    else if(empty(trim($_POST["ssn"]))){
-        $username_err = "Please enter a ssn.";
-    }
-    else if(empty(trim($_POST["dob"]))){
-        $username_err = "Please enter a dob.";
-    }
-    else if(empty(trim($_POST["patientAddress"]))){
+    else if(empty(trim($_POST["providerAddress"]))){
         $username_err = "Please enter a address.";
     }
-    else if(empty(trim($_POST["patientLatitude"]))){
+    else if(empty(trim($_POST["providerLatitude"]))){
         $username_err = "Please enter a Latitude.";
     }
-    else if(empty(trim($_POST["patientLongitude"]))){
+    else if(empty(trim($_POST["providerLongitude"]))){
         $username_err = "Please enter a Longitude.";
     }
-    else if(empty(trim($_POST["patientPhone"]))){
+    else if(empty(trim($_POST["providerPhone"]))){
         $username_err = "Please enter a phone_number.";
     }
-    else if(empty(trim($_POST["distancePreference"]))){
-        $username_err = "Please enter a distancePreference.";
+    else if(empty(trim($_POST["providerType"]))){
+        $username_err = "Please enter a providerType.";
     }
     else{
-        $patientName = trim($_POST["patientName"]);
-        // $first_name = trim($_POST["first_name"]);
-        // $surname = trim($_POST["surname"]);
-        $ssn = trim($_POST["ssn"]);
-        $dob = trim($_POST["dob"]);
-        $patientAddress = trim($_POST["patientAddress"]);
-        $patientLatitude = trim($_POST["patientLatitude"]);
-        $patientLongitude = trim($_POST["patientLongitude"]);
-        $patientPhone = trim($_POST["patientPhone"]);
-        $distancePreference = trim($_POST["distancePreference"]);
-       $username = trim($_POST["patientEmail"]);
-       $patientPassword = trim($_POST["patientPassword"]);
+        $providerName = trim($_POST["providerName"]);
+        $providerAddress = trim($_POST["providerAddress"]);
+        $providerLatitude = trim($_POST["providerLatitude"]);
+        $providerLongitude = trim($_POST["providerLongitude"]);
+        $providerPhone = trim($_POST["providerPhone"]);
+        $providerType = trim($_POST["providerType"]);
+       $username = trim($_POST["providerEmail"]);
+       $providerPassword = trim($_POST["providerPassword"]);
     }
 
     // Validate username
-    if(empty(trim($_POST["patientEmail"]))){
+    if(empty(trim($_POST["providerEmail"]))){
         $username_err = "Please enter a username.";
     } else{
         // Prepare a select statement
-        $sql = "SELECT patientId FROM patient WHERE patientEmail = ?";
+        $sql = "SELECT providerId FROM provider WHERE providerEmail = ?";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
             // Set parameters
-            $param_username = trim($_POST["patientEmail"]);
+            $param_username = trim($_POST["providerEmail"]);
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 /* store result */
@@ -68,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     $username_err = "This username is already taken.";
                 } else{
-                    $username = trim($_POST["patientEmail"]);
+                    $username = trim($_POST["providerEmail"]);
                     //echo "Your username is: $username\n\n\n\n\n";
                 }
             } else{
@@ -81,19 +71,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate password
-    if(empty(trim($_POST["patientPassword"]))){
+    if(empty(trim($_POST["providerPassword"]))){
         $password_err = "Please enter a password.";
-    } elseif(strlen(trim($_POST["patientPassword"])) < 6){
+    } elseif(strlen(trim($_POST["providerPassword"])) < 6){
         $password_err = "Password must have atleast 6 characters.";
     } else{
-        $patientPassword = trim($_POST["patientPassword"]);
+        $providerPassword = trim($_POST["providerPassword"]);
     }
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
         $confirm_password_err = "Please confirm password.";
     } else{
         $confirm_password = trim($_POST["confirm_password"]);
-        if(empty($password_err) && ($patientPassword != $confirm_password)){
+        if(empty($password_err) && ($providerPassword != $confirm_password)){
             $confirm_password_err = "Password did not match.";
         }
     }
@@ -102,28 +92,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         echo "No errors before inserting into database\n\n\n\n\n";
         // Prepare an insert statement
-        $sql = "INSERT INTO patient (patientName, ssn, dob, patientAddress, patientLatitude, patientLongitude,
-                                    patientPhone, distancePreference, patientEmail, patientPassword
-                                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO provider (providerName, providerAddress, providerLatitude, providerLongitude,
+                                    providerPhone, providerType, providerEmail, providerPassword
+                                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sissiiiiss", $param_patientName,
-                                    $param_ssn, $param_dob, $param_patientAddress, $param_patientLatitude,
-                                    $param_patientLongitude, $param_patientPhone, $param_distancePreference,
-                                    $param_patientEmail, $param_patientPassword);
+            mysqli_stmt_bind_param($stmt, "ssiissss", $param_providerName,
+                                    $param_providerAddress, $param_providerLatitude,
+                                    $param_providerLongitude, $param_providerPhone, $param_providerType,
+                                    $param_providerEmail, $param_providerPassword);
 
             // Set parameters
-            $param_patientName = $patientName;
-            $param_ssn = $ssn;
-            $param_dob = $dob;
-            $param_patientAddress = $patientAddress;
-            $param_patientLatitude = $patientLatitude;
-            $param_patientLongitude = $patientLongitude;
-            $param_patientPhone = $patientPhone;
-            $param_distancePreference = $distancePreference;
-            $param_patientEmail = $username;
-            $param_patientPassword = password_hash($patientPassword, PASSWORD_DEFAULT); // Creates a password hash
+            $param_providerName = $providerName;
+            $param_providerAddress = $providerAddress;
+            $param_providerLatitude = $providerLatitude;
+            $param_providerLongitude = $providerLongitude;
+            $param_providerPhone = $providerPhone;
+            $param_providerType = $providerType;
+            $param_providerEmail = $username;
+            $param_providerPassword = password_hash($providerPassword, PASSWORD_DEFAULT); // Creates a password hash
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -160,12 +148,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
-                <input type="email" name="patientEmail" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                <input type="email" name="providerEmail" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="patientPassword" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientPassword; ?>">
+                <input type="password" name="providerPassword" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerPassword; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
@@ -174,43 +162,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
-                <label>patientName</label>
-                <input type="text" name="patientName" class="form-control">
+                <label>Provider Name</label>
+                <input type="text" name="providerName" class="form-control">
                 <span class="invalid-feedback"></span>
             </div>
             <div class="form-group">
-                <label>ssn</label>
-                <input type="number" name="ssn" class="form-control">
+                <label>Provider Address</label>
+                <input type="text" name="providerAddress" class="form-control">
                 <span class="invalid-feedback"></span>
             </div>
             <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" name="dob" class="form-control">
+                <label>Provider Latitude</label>
+                <input type="number" name="providerLatitude" class="form-control">
                 <span class="invalid-feedback"></span>
             </div>
             <div class="form-group">
-                <label>paientAddress</label>
-                <input type="text" name="patientAddress" class="form-control">
+                <label>Provider Longitude</label>
+                <input type="number" name="providerLongitude" class="form-control">
                 <span class="invalid-feedback"></span>
             </div>
             <div class="form-group">
-                <label>patient Latitude</label>
-                <input type="number" name="patientLatitude" class="form-control">
+                <label>Phone Number</label>
+                <input type="number" name="providerPhone" class="form-control">
                 <span class="invalid-feedback"></span>
             </div>
             <div class="form-group">
-                <label>patient Longitude</label>
-                <input type="number" name="patientLongitude" class="form-control">
-                <span class="invalid-feedback"></span>
-            </div>
-            <div class="form-group">
-                <label>phone number</label>
-                <input type="number" name="patientPhone" class="form-control">
-                <span class="invalid-feedback"></span>
-            </div>
-            <div class="form-group">
-                <label>distance preference</label>
-                <input type="number" name="distancePreference" class="form-control">
+                <label>Provider Type</label>
+                <input type="text" name="providerType" class="form-control">
                 <span class="invalid-feedback"></span>
             </div>
 
@@ -221,7 +199,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
     </div>
-    <Body background="register.png"> <br>
-
 </body>
 </html>
