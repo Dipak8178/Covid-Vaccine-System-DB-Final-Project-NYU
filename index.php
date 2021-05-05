@@ -257,7 +257,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                     <div class="form-group ">
                                         <label>Patient's Email:</label>
-                                        <input type="text" name="patientEmail" placeholder ="Enter Email Here" class="form-control <?php echo (isset($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo (isset($patientEmail)) ? '' : $patientEmail; ?>">
+                                        <input type="text" name="patientEmail" placeholder ="Enter Email Here" class="form-control <?php echo (isset($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo (isset($patientEmail)) ? $patientEmail :'' ; ?>">
                                         <span class="invalid-feedback"><?php echo $patientEmail_err; ?></span>
                                     </div>
                                     <div class="form-group">
@@ -285,7 +285,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                     <div class="form-group ">
                                         <label>Provider's Email:</label>
-                                        <input type="text" name="providerEmail" placeholder ="Enter Email Here" class="form-control <?php echo (isset($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo (isset($providerEmail)) ? '' : $providerEmail; ?>">
+                                        <input type="text" name="providerEmail" placeholder ="Enter Email Here" class="form-control <?php echo (isset($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo (isset($providerEmail)) ? $providerEmail :''; ?>">
                                         <span class="invalid-feedback"><?php echo $providerEmail_err; ?></span>
                                     </div>
                                     <div class="form-group">
