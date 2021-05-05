@@ -189,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" id="providerEmail" name="providerEmail" placeholder="Enter email adress for log in" class="form-control <?php echo (!empty($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerEmail; ?>">
+                                <input type="email" id="providerEmail" name="providerEmail" placeholder="Enter email address for log in" class="form-control <?php echo (!empty($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerEmail; ?>">
                                 <span class="invalid-feedback"><?php echo $providerEmail_err; ?></span>
                             </div>
                             <div class="form-group">
@@ -204,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" id="providerName" name="providerName" placeholder="Enter provider name" class="form-control <?php echo (!empty($providerName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerName; ?>">
+                                <input type="text" id="providerName" name="providerName" placeholder="Enter business name" class="form-control <?php echo (!empty($providerName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerName; ?>">
                                 <span class="invalid-feedback"><?php echo $providerName_err; ?></span>
                             </div>
                             <div class="form-group">
@@ -214,7 +214,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input type="tel" id="providerPhone" name="providerPhone" placeholder="Enter Numbers Only" class="form-control <?php echo (!empty($providerPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerPhone; ?>">
+                                <input type="tel" id="providerPhone" name="providerPhone" placeholder="Enter number only without country code" class="form-control <?php echo (!empty($providerPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerPhone; ?>">
                                 <span class="invalid-feedback"><?php echo $providerPhone_err; ?></span>
                             </div>
                             <div class="form-group">
@@ -224,11 +224,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </select>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="display: flex;justify-content: center;">
                                 <input type="submit" class="btn btn-primary" value="Submit" onclick="">
                                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
                             </div>
+                            <div style="display: flex;justify-content: center;">
                             <p>Already have an account? <a href="index.php">Log In</a>.</p>
+                            </div>
                         </form>
                     </article>
                 </div>

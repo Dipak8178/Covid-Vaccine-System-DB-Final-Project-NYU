@@ -197,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" name="patientEmail" placeholder="Enter email adress for log in" class="form-control <?php echo (!empty($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientEmail; ?>">
+                                <input type="email" name="patientEmail" placeholder="Enter email address for log in" class="form-control <?php echo (!empty($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientEmail; ?>">
                                 <span class="invalid-feedback"><?php echo $patientEmail_err; ?></span>
                             </div>
                             <div class="form-group">
@@ -241,11 +241,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <span class="invalid-feedback"><?php echo $distancePreference_err; ?></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="display: flex;justify-content: center;">
                                 <input type="submit" class="btn btn-primary" value="Submit">
                                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
                             </div>
+                            <div style="display: flex;justify-content: center;">
+
                             <p>Already have an account? <a href="index.php">Login here</a>.</p>
+                            </div>
                         </form>
                 </div>
             </aside>
