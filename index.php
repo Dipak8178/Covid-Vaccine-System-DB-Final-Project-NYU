@@ -2,9 +2,12 @@
 include('header.php');
 
 // Define variables and initialize with empty values
-$providerEmail = $providerPassword = $patientEmail = $patientPassword ="";
-$providerEmail_err = $providerPassword_err = $ProviderLoginError = "";
-$patientEmail_err = $patientPassword_err = $PatientLoginError = "";
+$providerEmail = $providerPassword = $patientEmail = $patientPassword = '';
+$providerEmail_err = NULL; $providerPassword_err = NULL; $ProviderLoginError = NULL;
+$patientEmail_err = NULL; $patientPassword_err = NULL; $PatientLoginError = NULL;
+$pat_err = NULL; $prov_err = NULL;
+
+
 
 // Initialize the session
 session_start();
@@ -23,9 +26,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
 // Include config file
 require_once "config.php";
-// Define variables and initialize with empty values
-// $providerEmail = $providerPassword = "";
-// $providerEmail_err = $providerPassword_err = $login_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -34,6 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $providerLoginAttempt = isset($_POST["Provider_Login"]);
     $patientLoginAttempt = isset($_POST["Patient_Login"]);
 
+
+    // if Provider signing in
     if ($providerLoginAttempt) {
 
         $prov_err = false;
@@ -53,9 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $providerPassword = trim($_POST["providerPassword"]);
         }
-        if (! $prov_err){
+        if (!$prov_err){
             // Validate credentials
-            if (empty($providerEmail_err) && empty($password_err)) {
+            // if (!isset($providerEmail_err) && !isset($providerPassword_err)) {
                 // Prepare a select statement
                 $sql = "SELECT providerId, providerEmail, providerName, providerPassword FROM Provider WHERE providerEmail = ?";
 
@@ -78,8 +80,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             if (mysqli_stmt_fetch($stmt)) {
                                 if (password_verify($providerPassword, $hashed_password)) {
                                     // Password is correct, so start a new session
-                                    session_start();
-
                                     // Store data in session variables
                                     $_SESSION["loggedin"] = true;
                                     $_SESSION["provider"] = true;
@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                         } else {
                             // Email doesn't exist, display a generic error message
-                            $procvider_login_err = "Invalid Email or password.";
+                            $ProviderLoginError = "Invalid Email or password.";
                         }
                     } else {
                         echo "Oops! Something went wrong. Please try again later.";
@@ -105,13 +105,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Close statement
                     mysqli_stmt_close($stmt);
                 }
-            }
-        }
+            // }
+                // Close connection
+                mysqli_close($link);
+        }   
     };
 
     if ($patientLoginAttempt) {
 
-        $pat_err = false;
+        $par_err = false;
         // Check if Email is empty
         if (empty(trim($_POST["patientEmail"]))) {
             $patientEmail_err = "Please enter an Email.";
@@ -130,9 +132,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Validate credentials
         if(!$pat_err){
-            if (empty($patientEmail_err) && empty($password_err)) {
+            // if (empty($patientEmail_err) && empty($patientPassword_err)) {
                 // Prepare a select statement
-                $sql = "SELECT patientId, patientEmail, patientName, patientPassword FROM patient WHERE patientEmail = ?";
+                $sql = "SELECT patientId, patientEmail, patientName, patientPassword FROM Patient WHERE patientEmail = ?";
 
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     // Bind variables to the prepared statement as parameters
@@ -153,7 +155,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             if (mysqli_stmt_fetch($stmt)) {
                                 if (password_verify($patientPassword, $hashed_password)) {
                                     // Password is correct, so start a new session
-                                    session_start();
 
                                     // Store data in session variables
                                     $_SESSION["loggedin"] = true;
@@ -179,13 +180,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     // Close statement
                     mysqli_stmt_close($stmt);
+
                 }
-            }
+                // Close connection
+                mysqli_close($link);
+            // }
         }
     };
+
 }
-// Close connection
-mysqli_close($link);
+
 
 ?>
 
@@ -205,6 +209,10 @@ mysqli_close($link);
             width: 350px;
             padding: 20px;
         }
+        label {
+            font: 15px sans-serif;
+            }
+
     </style>
 </head>
 
@@ -213,45 +221,48 @@ mysqli_close($link);
 
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col col-md-6 ">
+            <div class="col col-md-5 ">
                 <?php
                 if (isset($_SESSION["success_message"])) {
                     echo $_SESSION["success_message"];
                     unset($_SESSION["success_message"]);
                 }
                 ?>
-                <div class="card">
+                <div class="card" style="align-items: center;">
                     <h2 class="card-title text-center mb-4 mt-4">
                         Log In
                     </h2>
-                    <ul class="nav nav-pills mb-3 justify-content-md-center" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills mb-3 justify-content-md-center" style="border-radius: 10px;border: 2px solid #007BFF;" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link <?php echo (isset($providerLoginAttempt)) ? '' : 'active'; ?>" id="pills-patient-tab" data-bs-toggle="pill" data-bs-target="#pills-patient" type="button" role="tab" aria-controls="pills-patient" aria-selected="<?php echo (isset($providerLoginAttempt)) ? 'false' : 'true'; ?>">Patient</button>
+                            <button class="nav-link <?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? '' : 'active'; ?>" id="pills-patient-tab" data-bs-toggle="pill" data-bs-target="#pills-patient" type="button" role="tab" aria-controls="pills-patient" aria-selected="<?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? 'false' : 'true'; ?>">Patient</button>
                         </li>
                         <li class=" nav-item" role="presentation">
-                                <button class="nav-link <?php echo (isset($providerLoginAttempt)) ? 'active' : ''; ?>" id="pills-provider-tab" data-bs-toggle="pill" data-bs-target="#pills-provider" type="button" role="tab" aria-controls="pills-provider" aria-selected="<?php echo (isset($providerLoginAttempt)) ? 'true' : 'false'; ?>">Provider</button>
+                                <button class="nav-link <?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? 'active' : ''; ?>" id="pills-provider-tab" data-bs-toggle="pill" data-bs-target="#pills-provider" type="button" role="tab" aria-controls="pills-provider" aria-selected="<?php (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? 'true' : 'false'; ?>">Provider</button>
                         </li>
                     </ul>
 
-                    <div class="card-body">
+                    <div class="card-body" style="width:80%">
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-patient" role="tabpanel" aria-labelledby="pills-patient-tab">
 
-                                <?php
-                                if (!empty($login_err)) {
-                                    echo '<div class="alert alert-danger">' . $PatientLoginError . '</div>';
-                                }
-                                ?>
+                        <?php
+                        if (isset($PatientLoginError)) {
+                            echo '<div class=" alert alert-dismissible alert-danger" style="padding: 1.0rem !important;">' . 
+                            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.
+                            $PatientLoginError . '</div>';
+                        }
+                        ?>
+                            <div class="tab-pane fade <?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? '' : 'active show'; ?>" id="pills-patient" role="tabpanel" aria-labelledby="pills-patient-tab">
+
 
                                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                     <div class="form-group ">
                                         <label>Patient's Email:</label>
-                                        <input type="text" name="patientEmail" placeholder = "Enter Email Here" class="form-control <?php echo (!empty($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientEmail; ?>">
+                                        <input type="text" name="patientEmail" placeholder ="Enter Email Here" class="form-control <?php echo (isset($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo (isset($patientEmail)) ? $patientEmail :'' ; ?>">
                                         <span class="invalid-feedback"><?php echo $patientEmail_err; ?></span>
                                     </div>
                                     <div class="form-group">
                                         <label>Password:</label>
-                                        <input type="password" name="patientPassword" placeholder = "Enter Password Here" class="form-control <?php echo (!empty($providerPassword_err)) ? 'is-invalid' : ''; ?>">
+                                        <input type="password" name="patientPassword" placeholder ="Enter Password Here" class="form-control <?php echo (isset($patientPassword_err)) ? 'is-invalid' : ''; ?>">
                                         <span class="invalid-feedback"><?php echo $patientPassword_err; ?></span>
                                     </div>
                                     <div class="form-group" style="display:flex; justify-content: center;">
@@ -262,22 +273,24 @@ mysqli_close($link);
                                 </form>
 
                             </div>
-                            <div class="tab-pane fade" id="pills-provider" role="tabpanel" aria-labelledby="pills-provider-tab">
+                            <div class="tab-pane fade <?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? 'active show' : ''; ?>" id="pills-provider" role="tabpanel" aria-labelledby="pills-provider-tab">
                                 <?php
-                                if (!empty($login_err)) {
-                                    echo '<div class="alert alert-danger">' . $ProviderLoginError . '</div>';
+                                if (isset($ProviderLoginError)) {
+                                    echo '<div class=" alert alert-dismissible alert-danger " style="padding: 1.0rem !important;">' . 
+                                    '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.
+                                    $ProviderLoginError . '</div>';
                                 }
                                 ?>
 
                                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                     <div class="form-group ">
                                         <label>Provider's Email:</label>
-                                        <input type="text" name="providerEmail" placeholder = "Enter Email Here" class="form-control <?php echo (!empty($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerEmail; ?>">
+                                        <input type="text" name="providerEmail" placeholder ="Enter Email Here" class="form-control <?php echo (isset($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo (isset($providerEmail)) ? $providerEmail :''; ?>">
                                         <span class="invalid-feedback"><?php echo $providerEmail_err; ?></span>
                                     </div>
                                     <div class="form-group">
                                         <label>Password:</label>
-                                        <input type="password" name="providerPassword" placeholder = "Enter Password Here" class="form-control <?php echo (!empty($providerPassword_err)) ? 'is-invalid' : ''; ?>">
+                                        <input type="password" name="providerPassword" placeholder ="Enter Password Here" class="form-control <?php echo (isset($providerPassword_err)) ? 'is-invalid' : ''; ?>">
                                         <span class="invalid-feedback"><?php echo $providerPassword_err; ?></span>
                                     </div>
                                     <div class="form-group" style="display:flex; justify-content: center;">
@@ -289,9 +302,6 @@ mysqli_close($link);
                             </div>
 
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
