@@ -176,6 +176,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 20px;
             align-self: center;
         }
+
+        label {
+            font: 15px sans-serif;
+            }
     </style>
 </head>
 
@@ -183,37 +187,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <div class="row">
             <aside class="col-sm-8" style="margin: auto">
-                <div class="card">
-                    <article class="card-body">
-                        <h4 class="card-title text-center mb-4 mt-1">
-                            Patient Registration
-                        </h4>
-                        </hr>
-                        <p>Please fill this form to create an account.</p>
+                <div class="card" style="align-items: center;">
+                <h2 class="card-title text-center mb-4 mt-4">
+                Patient Registration
+                    </h2>
+                    <p>Please fill this form to create an account.</p>
+
+                    <article class="card-body" style="width:90%">
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" name="patientEmail" class="form-control <?php echo (!empty($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientEmail; ?>">
+                                <input type="email" name="patientEmail" placeholder="Enter email adress for log in" class="form-control <?php echo (!empty($patientEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientEmail; ?>">
                                 <span class="invalid-feedback"><?php echo $patientEmail_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" name="patientPassword" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientPassword; ?>">
+                                <input type="password" name="patientPassword" placeholder="Enter password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientPassword; ?>">
                                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Confirm Password</label>
-                                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                                <input type="password" name="confirm_password" placeholder="Re-enter password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Patient Name</label>
-                                <input type="text" name="patientName" class="form-control <?php echo (!empty($patientName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientName; ?>">
+                                <input type="text" name="patientName" placeholder="Enter full name" class="form-control <?php echo (!empty($patientName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientName; ?>">
                                 <span class="invalid-feedback"><?php echo $patientName_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>SSN</label>
-                                <input type="text" placeholder="XXXXXXXXX" pattern="\d{9}" name="ssn" class="form-control <?php echo (!empty($ssn_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $ssn; ?>">
+                                <input type="text" placeholder="Enter number only" pattern="\d{9}" name="ssn" class="form-control <?php echo (!empty($ssn_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $ssn; ?>">
                                 <span class="invalid-feedback"><?php echo $ssn_err; ?></span>
                             </div>
                             <div class="form-group">
@@ -223,17 +227,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="form-group">
                                 <label>Patient Address</label>
-                                <input type="text" name="patientAddress" class="form-control <?php echo (!empty($patientAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientAddress; ?>">
+                                <input type="text" name="patientAddress" placeholder="Enter full address"  class="form-control <?php echo (!empty($patientAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientAddress; ?>">
                                 <span class="invalid-feedback"><?php echo $patientAddress_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input type="tel" name="patientPhone" class="form-control <?php echo (!empty($patientPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientPhone; ?>">
+                                <input type="tel" name="patientPhone" placeholder="Enter number only" class="form-control <?php echo (!empty($patientPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientPhone; ?>">
                                 <span class="invalid-feedback"><?php echo $patientPhone_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Distance Preference</label>
-                                <input type="text" pattern="\d{0-2}" name="distancePreference" class="form-control <?php echo (!empty($distancePreference_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $distancePreference; ?>">
+                                <input type="text" pattern="\d{1-2}" placeholder="Enter the max distance you are willing to travel between 0-99 miles"  name="distancePreference" class="form-control <?php echo (!empty($distancePreference_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $distancePreference; ?>">
                                 <span class="invalid-feedback"><?php echo $distancePreference_err; ?></span>
                             </div>
 
