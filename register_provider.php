@@ -168,6 +168,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 20px;
             align-self: center;
         }
+
+        label {
+            font: 15px sans-serif;
+        }
     </style>
 
 </head>
@@ -175,48 +179,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <div class="row">
-            <aside class="col-sm-8" style="margin: auto">
-                <div class="card">
-                    <article class="card-body">
-                        <h4 class="card-title text-center mb-4 mt-1">
-                            Provider Registration
-                        </h4>
-                        </hr>
-                        <p>Please fill this form to create an account.</p>
+            <aside class="col-sm-9" style="margin: auto">
+                <div class="card" style="align-items: center;">
+                    <h2 class="card-title text-center mb-4 mt-4">
+                        Provider Registration
+                    </h2>
+                    <p>Please fill this form to create an account.</p>
+                    <article class="card-body" style="width:90%">
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" id="providerEmail" name="providerEmail" class="form-control <?php echo (!empty($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerEmail; ?>">
+                                <input type="email" id="providerEmail" name="providerEmail" placeholder="Enter email adress for log in" class="form-control <?php echo (!empty($providerEmail_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerEmail; ?>">
                                 <span class="invalid-feedback"><?php echo $providerEmail_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" id="providerPassword" name="providerPassword" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerPassword; ?>">
+                                <input type="password" id="providerPassword" name="providerPassword" placeholder="Enter password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerPassword; ?>">
                                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Confirm Password</label>
-                                <input type="password" id="confirm_password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                                <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
                             </div>
                             <div class="form-group">
-                                <label>Provider Name</label>
-                                <input type="text" id="providerName" name="providerName" class="form-control <?php echo (!empty($providerName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerName; ?>">
+                                <label>Name</label>
+                                <input type="text" id="providerName" name="providerName" placeholder="Enter provider name" class="form-control <?php echo (!empty($providerName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerName; ?>">
                                 <span class="invalid-feedback"><?php echo $providerName_err; ?></span>
                             </div>
                             <div class="form-group">
-                                <label>Provider Address</label>
-                                <input type="text" id="providerAddress" name="providerAddress" class="form-control <?php echo (!empty($providerAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerAddress; ?>">
+                                <label>Address</label>
+                                <input type="text" id="providerAddress" name="providerAddress" placeholder="Enter full address" class="form-control <?php echo (!empty($providerAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerAddress; ?>">
                                 <span class="invalid-feedback"><?php echo $providerAddress_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input type="tel" id="providerPhone" name="providerPhone" class="form-control <?php echo (!empty($providerPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerPhone; ?>">
+                                <input type="tel" id="providerPhone" name="providerPhone" placeholder="Enter Numbers Only" class="form-control <?php echo (!empty($providerPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerPhone; ?>">
                                 <span class="invalid-feedback"><?php echo $providerPhone_err; ?></span>
                             </div>
                             <div class="form-group">
-                                <label>Provider Type</label>
-                                <input type="text" id="providerType" name="providerType" class="form-control <?php echo (!empty($providerType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerType; ?>">
+                                <label>Type</label>
+                                <input type="text" id="providerType" name="providerType" placeholder="Enter pharmacy, clinic, hostipal, etc" class="form-control <?php echo (!empty($providerType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerType; ?>">
                                 <span class="invalid-feedback"><?php echo $providerType_err; ?></span>
                                 </select>
                             </div>

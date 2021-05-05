@@ -179,17 +179,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         label {
             font: 15px sans-serif;
-            }
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <aside class="col-sm-8" style="margin: auto">
+            <aside class="col-sm-9" style="margin: auto">
                 <div class="card" style="align-items: center;">
-                <h2 class="card-title text-center mb-4 mt-4">
-                Patient Registration
+                    <h2 class="card-title text-center mb-4 mt-4">
+                        Patient Registration
                     </h2>
                     <p>Please fill this form to create an account.</p>
 
@@ -211,7 +211,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
                             </div>
                             <div class="form-group">
-                                <label>Patient Name</label>
+                                <label>Name</label>
                                 <input type="text" name="patientName" placeholder="Enter full name" class="form-control <?php echo (!empty($patientName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientName; ?>">
                                 <span class="invalid-feedback"><?php echo $patientName_err; ?></span>
                             </div>
@@ -226,18 +226,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <span class="invalid-feedback"><?php echo $dob_err; ?></span>
                             </div>
                             <div class="form-group">
-                                <label>Patient Address</label>
-                                <input type="text" name="patientAddress" placeholder="Enter full address"  class="form-control <?php echo (!empty($patientAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientAddress; ?>">
+                                <label>Address</label>
+                                <input type="text" name="patientAddress" placeholder="Enter full address" class="form-control <?php echo (!empty($patientAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientAddress; ?>">
                                 <span class="invalid-feedback"><?php echo $patientAddress_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input type="tel" name="patientPhone" placeholder="Enter number only" class="form-control <?php echo (!empty($patientPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientPhone; ?>">
+                                <input type="text" pattern="\d{10}" name="patientPhone" placeholder="Enter number only without country code" class="form-control <?php echo (!empty($patientPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientPhone; ?>">
                                 <span class="invalid-feedback"><?php echo $patientPhone_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Distance Preference</label>
-                                <input type="text" pattern="\d{1-2}" placeholder="Enter the max distance you are willing to travel between 0-99 miles"  name="distancePreference" class="form-control <?php echo (!empty($distancePreference_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $distancePreference; ?>">
+                                <input type="text" pattern="\d{1,2}" placeholder="Enter maximum distance you are willing to travel to get vaccinated (1-99 miles)" name="distancePreference" class="form-control <?php echo (!empty($distancePreference_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $distancePreference; ?>">
                                 <span class="invalid-feedback"><?php echo $distancePreference_err; ?></span>
                             </div>
 
@@ -248,6 +248,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <p>Already have an account? <a href="index.php">Login here</a>.</p>
                         </form>
                 </div>
+            </aside>
+        </div>
+    </div>
 </body>
 
 </html>
