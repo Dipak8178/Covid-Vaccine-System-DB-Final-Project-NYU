@@ -11,102 +11,97 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $err = false;
 
+    //validate providerName
     $providerName = trim($_POST["providerName"]);
     if (empty($providerName)) {
         $providerName_err = "Please enter a full name.";
         $err = true;
     }
+    //validate providerAddress
     $providerAddress = trim($_POST["providerAddress"]);
     if (empty($providerAddress)) {
         $providerAddress_err = "Please enter a address.";
         $err = true;
     }
+
+    //validate providerPhone
     $providerPhone = trim($_POST["providerPhone"]);
     if (empty($providerPhone)) {
         $providerPhone_err = "Please enter a phone_number.";
         $err = true;
     }
+
+    //validate providerType
     $providerType = trim($_POST["providerType"]);
     if (empty($providerType)) {
         $providerType_err = "Please enter a providerType.";
         $err = true;
+    }
 
-        $providerEmail =  trim($_POST["providerEmail"]);
-        if (empty($providerEmail)) {
-            $providerEmail_err = "Please enter an Email.";
+    // Validate providerEmail
+    $providerEmail =  trim($_POST["providerEmail"]);
+    if (empty($providerEmail)) {
+        $providerEmail_err = "Please enter an Email.";
+        $err = true;
+    }
+
+    // Validate password
+    if (empty(trim($_POST["providerPassword"]))) {
+        $password_err = "Please enter a password.";
+        $err = true;
+    } elseif (strlen(trim($_POST["providerPassword"])) < 6) {
+        $password_err = "Password must have atleast 6 characters.";
+        $err = true;
+    } else {
+        $providerPassword = trim($_POST["providerPassword"]);
+    }
+
+    // Validate confirm password
+    if (empty(trim($_POST["confirm_password"]))) {
+        $confirm_password_err = "Please confirm password.";
+        $err = true;
+    } else {
+        $confirm_password = trim($_POST["confirm_password"]);
+        if (empty($password_err) && ($providerPassword != $confirm_password)) {
+            $confirm_password_err = "Password did not match.";
             $err = true;
         }
+    }
 
-        // Validate password
-        if (empty(trim($_POST["providerPassword"]))) {
-            $password_err = "Please enter a password.";
-            $err = true;
-        } elseif (strlen(trim($_POST["providerPassword"])) < 6) {
-            $password_err = "Password must have atleast 6 characters.";
-            $err = true;
-        } else {
-            $providerPassword = trim($_POST["providerPassword"]);
-            $err = true;
-        }
-        // Validate confirm password
-        if (empty(trim($_POST["confirm_password"]))) {
-            $confirm_password_err = "Please confirm password.";
-            $err = true;
-        } else {
-            $confirm_password = trim($_POST["confirm_password"]);
-            if (empty($password_err) && ($providerPassword != $confirm_password)) {
-                $confirm_password_err = "Password did not match.";
-                $err = true;
-            }
-        }
-
-        // Validate providerEmail
-        // Prepare a select statement
+    if ($err == false) {
+        // Prepare a select statement to check for exiting provider with same email
         $sql = "SELECT providerId FROM provider WHERE providerEmail = ?";
+        $num_row = -1;
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_providerEmail);
+            mysqli_stmt_bind_param($stmt, "s", $providerEmail);
             // Set parameters
             $param_providerEmail = trim($_POST["providerEmail"]);
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 /* store result */
                 mysqli_stmt_store_result($stmt);
+                $num_row = mysqli_stmt_num_rows($stmt);
 
-                if (mysqli_stmt_num_rows($stmt) == 1) {
+                if ($num_row  == 1) {
                     $providerEmail_err = "This Email is already taken.";
                     $err = true;
                 }
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
-
             // Close statement
             mysqli_stmt_close($stmt);
         }
-    }
+        if ($num_row == 0) {
+            // Get Longitude and Latitude from providerAddress using Google Maps API
+            $address = str_replace(" ", "+", $providerAddress);
+            $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address&key=AIzaSyA3mM2cTa1pPBc73_wsR2YEkpEb-W45b8k");
+            $json = json_decode($json);
+            $providerLatitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+            $providerLongitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
 
-    if (!$err) {
-        $providerName = trim($_POST["providerName"]);
-        $providerAddress = trim($_POST["providerAddress"]);
-        $providerPhone = trim($_POST["providerPhone"]);
-        $providerType = trim($_POST["providerType"]);
-        $providerEmail = trim($_POST["providerEmail"]);
-        $providerPassword = trim($_POST["providerPassword"]);
-
-
-
-        // Get Longitude and Latitude from providerAddress using Google Maps API
-        $address = str_replace(" ", "+", $providerAddress);
-        $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address&key=AIzaSyA3mM2cTa1pPBc73_wsR2YEkpEb-W45b8k");
-        $json = json_decode($json);
-        $providerLatitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
-        $providerLongitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
-
-
-        // Check input errors before inserting in database
-        if (empty($providerEmail_err) && empty($password_err) && empty($confirm_password_err)) {
 
             // Prepare an insert statement
             $sql = "INSERT INTO Provider (providerName, providerAddress, providerLatitude, providerLongitude,
@@ -116,7 +111,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt = mysqli_prepare($link, $sql)) {
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param(
-                    $stmt,"ssiissss",
+                    $stmt,
+                    "ssiissss",
                     $param_providerName,
                     $param_providerAddress,
                     $param_providerLatitude,
@@ -148,11 +144,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_stmt_close($stmt);
             }
         }
+        // Close connection
+        mysqli_close($link);
     }
-    // Close connection
-    mysqli_close($link);
 }
-
 
 ?>
 
@@ -164,7 +159,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Sign Up</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-
         body {
             font: 14px sans-serif;
         }
@@ -185,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="card">
                     <article class="card-body">
                         <h4 class="card-title text-center mb-4 mt-1">
-                            Create New Account
+                            Provider Registration Page
                         </h4>
                         </hr>
                         <p>Please fill this form to create an account.</p>
