@@ -186,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="card">
                     <article class="card-body">
                         <h4 class="card-title text-center mb-4 mt-1">
-                            Create New Account
+                            Patient Registration
                         </h4>
                         </hr>
                         <p>Please fill this form to create an account.</p>
