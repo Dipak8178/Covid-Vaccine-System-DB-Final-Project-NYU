@@ -212,6 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         label {
             font: 15px sans-serif;
             }
+
     </style>
 </head>
 
@@ -227,11 +228,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     unset($_SESSION["success_message"]);
                 }
                 ?>
-                <div class="card">
+                <div class="card" style="align-items: center;">
                     <h2 class="card-title text-center mb-4 mt-4">
                         Log In
                     </h2>
-                    <ul class="nav nav-pills mb-3 justify-content-md-center" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills mb-3 justify-content-md-center" style="border-radius: 10px;border: 2px solid #007BFF;" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? '' : 'active'; ?>" id="pills-patient-tab" data-bs-toggle="pill" data-bs-target="#pills-patient" type="button" role="tab" aria-controls="pills-patient" aria-selected="<?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? 'false' : 'true'; ?>">Patient</button>
                         </li>
@@ -240,12 +241,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </li>
                     </ul>
 
-                    <div class="card-body">
+                    <div class="card-body" style="width:80%">
                         <div class="tab-content" id="pills-tabContent">
 
                         <?php
                         if (isset($PatientLoginError)) {
-                            echo '<div class="alert alert-danger alert-dismissible">' . $PatientLoginError . '</div>';
+                            echo '<div class=" alert alert-dismissible alert-danger" style="padding: 1.0rem !important;">' . 
+                            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.
+                            $PatientLoginError . '</div>';
                         }
                         ?>
                             <div class="tab-pane fade <?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? '' : 'active show'; ?>" id="pills-patient" role="tabpanel" aria-labelledby="pills-patient-tab">
@@ -273,7 +276,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="tab-pane fade <?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? 'active show' : ''; ?>" id="pills-provider" role="tabpanel" aria-labelledby="pills-provider-tab">
                                 <?php
                                 if (isset($ProviderLoginError)) {
-                                    echo '<div class="alert alert-danger alert-dismissible">' . $ProviderLoginError . '</div>';
+                                    echo '<div class=" alert alert-dismissible alert-danger " style="padding: 1.0rem !important;">' . 
+                                    '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.
+                                    $ProviderLoginError . '</div>';
                                 }
                                 ?>
 
