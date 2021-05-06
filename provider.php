@@ -1,9 +1,6 @@
 <?php
 include('header.php');
 
-// Initialize the session
-session_start();
-
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
@@ -28,7 +25,7 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true){
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="dashboard.php">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -37,7 +34,7 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true){
             <li class="nav-item">
                 <a class="nav-link" href="doctor_schedule.php">
                     <i class="fas fa-user-clock"></i>
-                    <span>Doctor Schedule</span></a>
+                    <span>Scheduled Appointments</span></a>
             </li>
             
             <li class="nav-item">
@@ -61,6 +58,7 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true){
             <!-- Main Content -->
             <div id="content">
 
+            <div style="justify-content: center;display: flex;"><h3> Welcome <?php echo htmlspecialchars($_SESSION["providerName"]); ?> <h3></div>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -68,5 +66,7 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true){
             </div>
         </div>
     </div>
-</body>
-</html>
+
+<?php
+    include('footer.php');
+?>
