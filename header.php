@@ -88,4 +88,3 @@ session_start();
 		</div>
 	</nav>
 
-</html>
