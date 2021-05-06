@@ -3,6 +3,22 @@
 require_once "config.php";
 include('header.php');
 
+
+// Initialize the session
+session_start();
+
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    if (isset($_SESSION["type"]) && $_SESSION["type"] === "patient"){
+        header("location: patient.php");
+        exit;
+    }
+    if (isset($_SESSION["type"]) && $_SESSION["type"] === "provider"){
+        header("location: provider.php");
+        exit;
+    }
+}
+
 // Define variables and initialize with empty values
 $providerEmail_err = $password_err = $confirm_password_err = $providerAddress_err = $providerPhone_err = $providerName_err = $providerType_err = "";
 $providerEmail = $providerPassword = $confirm_password = $providerAddress = $providerPhone = $providerName = $providerType = "";
@@ -96,8 +112,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if ($num_row == 0) {
             // Get Longitude and Latitude from providerAddress using Google Maps API
+            $api_key = GOOGLE_API_KEY;
             $address = str_replace(" ", "+", $providerAddress);
-            $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address&key=AIzaSyA3mM2cTa1pPBc73_wsR2YEkpEb-W45b8k");
+            $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address&key=$api_key");
+
             $json = json_decode($json);
             $providerLatitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
             $providerLongitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};

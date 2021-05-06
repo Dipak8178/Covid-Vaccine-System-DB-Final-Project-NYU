@@ -14,11 +14,11 @@ session_start();
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true){
+    if (isset($_SESSION["type"]) && $_SESSION["type"] === "patient"){
         header("location: patient.php");
         exit;
     }
-    if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true){
+    if (isset($_SESSION["type"]) && $_SESSION["type"] === "provider"){
         header("location: provider.php");
         exit;
     }
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     // Password is correct, so start a new session
                                     // Store data in session variables
                                     $_SESSION["loggedin"] = true;
-                                    $_SESSION["provider"] = true;
+                                    $_SESSION["type"] = "provider";
                                     $_SESSION["providerId"] = $providerId;
                                     $_SESSION["providerEmail"] = $providerEmail;
                                     $_SESSION["providerName"] = $providerName;
@@ -158,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     // Store data in session variables
                                     $_SESSION["loggedin"] = true;
-                                    $_SESSION["patient"] = true;
+                                    $_SESSION["type"] = "patient";
                                     $_SESSION["patientId"] = $patientId;
                                     $_SESSION["patientEmail"] = $patientEmail;
                                     $_SESSION["patientName"] = $patientName;
