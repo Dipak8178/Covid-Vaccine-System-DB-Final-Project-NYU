@@ -33,16 +33,6 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true){
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="doctor.php">
-                    <i class="fas fa-user-md"></i>
-                    <span>Doctor</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="patient.php">
-                    <i class="fas fa-procedures"></i>
-                    <span>Patient</span></a>
-            </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="doctor_schedule.php">
@@ -53,25 +43,14 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true){
             <li class="nav-item">
                 <a class="nav-link" href="appointment.php">
                     <i class="fas fa-notes-medical"></i>
-                    <span>Appointment</span></a>
+                    <span>Add Appointment</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="profile.php">
                     <i class="far fa-id-card"></i>
-                    <span>Profile</span></a>
+                    <span>Provider Profile</span></a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="doctor_profile.php">
-                    <i class="far fa-id-card"></i>
-                    <span>Profile</span></a>
-            </li>
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
 
         </ul>
         <!-- End of Sidebar -->
