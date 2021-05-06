@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // }
                 // Close connection
                 mysqli_close($link);
-        }   
+        }
     };
 
     if ($patientLoginAttempt) {
@@ -164,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $_SESSION["patientName"] = $patientName;
 
                                     // Redirect user to welcome page
-                                    header("location: welcome.php"); //need to change this
+                                    header("location: patient.php"); //need to change this
                                 } else {
                                     // Password is not valid, display a generic error message
                                     $PatientLoginError = "Invalid Email or password.";
@@ -246,7 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <?php
                         if (isset($PatientLoginError)) {
-                            echo '<div class=" alert alert-dismissible alert-danger" style="padding: 1.0rem !important;">' . 
+                            echo '<div class=" alert alert-dismissible alert-danger" style="padding: 1.0rem !important;">' .
                             '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.
                             $PatientLoginError . '</div>';
                         }
@@ -276,7 +276,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="tab-pane fade <?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? 'active show' : ''; ?>" id="pills-provider" role="tabpanel" aria-labelledby="pills-provider-tab">
                                 <?php
                                 if (isset($ProviderLoginError)) {
-                                    echo '<div class=" alert alert-dismissible alert-danger " style="padding: 1.0rem !important;">' . 
+                                    echo '<div class=" alert alert-dismissible alert-danger " style="padding: 1.0rem !important;">' .
                                     '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.
                                     $ProviderLoginError . '</div>';
                                 }
