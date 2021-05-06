@@ -4,11 +4,6 @@
 require_once "config.php";
 include('header.php');
 
-
-// Initialize the session
-session_start();
-
-
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     if (isset($_SESSION["type"]) && $_SESSION["type"] === "patient"){
@@ -181,29 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font: 14px sans-serif;
-        }
-
-        .wrapper {
-            width: 350px;
-            padding: 20px;
-            align-self: center;
-        }
-
-        label {
-            font: 15px sans-serif;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
+    <div class="container" style="margin-top: 2rem;">
         <div class="row">
             <aside class="col-sm-9" style="margin: auto">
                 <div class="card" style="align-items: center;">
@@ -273,6 +246,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </aside>
         </div>
     </div>
-</body>
-
-</html>
+    <?php
+    include('footer.php');
+    ?>

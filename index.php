@@ -7,11 +7,6 @@ $providerEmail_err = NULL; $providerPassword_err = NULL; $ProviderLoginError = N
 $patientEmail_err = NULL; $patientPassword_err = NULL; $PatientLoginError = NULL;
 $pat_err = NULL; $prov_err = NULL;
 
-
-
-// Initialize the session
-session_start();
-
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     if (isset($_SESSION["type"]) && $_SESSION["type"] === "patient"){
@@ -193,33 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font: 14px sans-serif;
-        }
-
-        .wrapper {
-            width: 350px;
-            padding: 20px;
-        }
-        label {
-            font: 15px sans-serif;
-            }
-
-    </style>
-</head>
-
-<body>
-
-
-    <div class="container">
+   <div class="container" style="margin-top: 3rem;">
         <div class="row justify-content-md-center">
             <div class="col col-md-5 ">
                 <?php
@@ -307,6 +276,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-</body>
-
-</html>
+    <?php
+    include('footer.php');
+    ?>
