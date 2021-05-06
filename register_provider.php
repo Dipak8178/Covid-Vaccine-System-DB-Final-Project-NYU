@@ -81,8 +81,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($err == false) {
+        
         // Prepare a select statement to check for exiting provider with same email
-        $sql = "SELECT providerId FROM provider WHERE providerEmail = ?";
+        $sql = "SELECT providerId FROM Provider WHERE providerEmail = ?";
         $num_row = -1;
 
         if ($stmt = mysqli_prepare($link, $sql)) {
@@ -108,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if ($num_row == 0) {
             // Get Longitude and Latitude from providerAddress using Google Maps API
-            $api_key = GOOGLE_API_KEY;
+            $api_key = "AIzaSyA3mM2cTa1pPBc73_wsR2YEkpEb-W45b8k";
             $address = str_replace(" ", "+", $providerAddress);
             $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address&key=$api_key");
 
@@ -164,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-    <div class="container" style="margin-top: 2rem;">
+    <div class="container"style="margin-top: 2rem;">
         <div class="row">
             <aside class="col-sm-9" style="margin: auto">
                 <div class="card" style="align-items: center;">
