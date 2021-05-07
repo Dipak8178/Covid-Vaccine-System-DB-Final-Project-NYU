@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param(
                     $stmt,
-                    "sissiiiiss",
+                    "sissddiiss",
                     $param_patientName,
                     $param_ssn,
                     $param_dob,
