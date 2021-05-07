@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($err == false) {
-        
+
         // Prepare a select statement to check for exiting provider with same email
         $sql = "SELECT providerId FROM Provider WHERE providerEmail = ?";
         $num_row = -1;
@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param(
                     $stmt,
-                    "ssiissss",
+                    "ssddssss",
                     $param_providerName,
                     $param_providerAddress,
                     $param_providerLatitude,
