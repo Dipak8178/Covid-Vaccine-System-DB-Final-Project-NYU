@@ -1,31 +1,74 @@
 <?php
+include('header.php');
 // Initialize the session
-session_start();
+//session_start();
 
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: index.php");
     exit;
 }
+// stop providers from accessing patient page
+if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true){
+    header("location: provider.php");
+    exit;
+}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; text-align: center; }
-    </style>
-</head>
-<body>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["patientName"]); ?>.<br></b>Welcome to our site.</h1></br>
-    <p>
-        <a href="scheduleAppointment.php" class="btn btn-outline-success">Make an Appointment</a>
-        <a href="editAppointment.php" class="btn btn-outline-secondary">Edit an Appointment</a>
-        <a href="reset-password.php" class="btn btn-outline-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-outline-danger">Sign Out of Your Account</a>
-    </p>
-</body>
-</html>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="dashboard.php">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="patientsavailableappointments.php">
+                    <i class="fas fa-user-clock"></i>
+                    <span>Schedule Appointments</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="appointment.php">
+                    <i class="fas fa-notes-medical"></i>
+                    <span>Edit Appointment</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="profile.php">
+                    <i class="far fa-id-card"></i>
+                    <span>Patient Profile</span></a>
+            </li>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+            <div style="justify-content: center;display: flex;"><h3> Welcome <?php echo htmlspecialchars($_SESSION["patientName"]); ?> <h3></div>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php
+    include('footer.php');
+?>
