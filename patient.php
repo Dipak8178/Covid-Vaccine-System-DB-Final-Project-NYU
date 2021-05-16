@@ -30,7 +30,13 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
             <li class="nav-item">
                 <a class="nav-link" href="patient_profile.php">
                     <i class="far fa-id-card"></i>
-                    <span>Patient Profile</span></a>
+                    <span>Profile</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="patient_preferences.php">
+                <i class="fas fa-clipboard-check"></i>
+                    <span>Pereferences</span></a>
             </li>
         </ul>
         <!-- End of Sidebar -->
