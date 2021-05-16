@@ -26,25 +26,25 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true){
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="provider.php">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="doctor_schedule.php">
+                <a class="nav-link" href="#">
                     <i class="fas fa-user-clock"></i>
                     <span>Scheduled Appointments</span></a>
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="appointment.php">
+                <a class="nav-link" href="provider_add_appt.php">
                     <i class="fas fa-notes-medical"></i>
                     <span>Add Appointment</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="profile.php">
+                <a class="nav-link" href="#">
                     <i class="far fa-id-card"></i>
                     <span>Provider Profile</span></a>
             </li>
