@@ -209,12 +209,17 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
             var address = document.getElementById("patientAddress").value;
             var phone = document.getElementById("patientPhone").value;
             var dob = document.getElementById("dob").value;
+
+            if (email == "" || address == "" || phone == "" || dob == ""){
+                alert("All fields must be completed.");
+
+            }
             
             $.ajax({
                 type: "POST",
-                url: 'patient_functions.php',
+                url: "patient_functions.php",
                 data: {
-                    action: 'update',
+                    action: "update",
                     patientId: <?php echo $_SESSION["patientId"] ?>,
                     email: email,
                     address: address,
@@ -235,10 +240,14 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
             if (password!=confirmPassword){
                 alert("Password Donot Match");
             }
+            else if (password == "" || confirmPassword == ""){
+                alert("All fields must be completed.");
+
+            }
             else {
                 $.ajax({
                     type: "POST",
-                    url: 'patient_functions.php',
+                    url: "patient_functions.php",
                     data: {
                         action: 'password',
                         patientId: <?php echo $_SESSION["patientId"] ?>,
