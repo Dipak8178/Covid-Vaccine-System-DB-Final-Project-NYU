@@ -2,7 +2,7 @@
 // Include config file & header file
 require_once "config.php";
 include('header.php');
-include('functions.php');
+include('provider_functions.php');
 
 // Check if the user is logged in, if not then redirect him to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
