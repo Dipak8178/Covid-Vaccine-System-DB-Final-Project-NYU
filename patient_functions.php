@@ -214,30 +214,6 @@ require_once "config.php";
                 }
         }
         else{echo "Update Failed";}
-    }
-
-    function getPatientDetail($patientId, $link) {
-        $result = NULL;
-        $sql = "CALL getUserInfo(?, ?);";
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param(
-                $stmt,
-                "is",
-                $param_patientId,
-                $param_type
-                );
-                // Set parameters
-                $param_patientId= $patientId;
-                $param_type= "patient";
-        
-                if(mysqli_stmt_execute($stmt)){
-                    $result = mysqli_stmt_get_result($stmt);
-                }
-        }
-        else{echo "Failed";}
-        
-        return $result;     
-    }
-        
+    }        
 
    ?>
