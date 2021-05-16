@@ -17,6 +17,13 @@ require_once "config.php";
             case 'password':
                 updatePassword($_POST['patientId'], $_POST['password'], $link);
                 break;
+            case 'preference':
+                updateTimePreference($_POST['patientId'], $_POST['data'], $link);
+                break;
+            case 'distance':
+                updateDistancePreference($_POST['patientId'], $_POST['distance'], $link);
+                break;
+
 
         }
     }
@@ -214,6 +221,113 @@ require_once "config.php";
                 }
         }
         else{echo "Update Failed";}
-    }        
+    }    
+    
+    function getPatientTimePreference($patientId, $link) {
+        $result = NULL;
+        // $sql = "CALL getPatientTimePreference(?);";
+        $sql = "SELECT patientId, slotId, day, startTime, endTime FROM PatientTimePreference pt
+                NATURAL JOIN TimeSlot ts 
+                WHERE patientId = ?
+                ORDER BY slotId";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param(
+                $stmt,
+                "i",
+                $param_patientId,
+                );
+                // Set parameters
+                $param_patientId= $patientId;
+        
+                if(mysqli_stmt_execute($stmt)){
+                    $result = mysqli_stmt_get_result($stmt);
+                }
+        }
+        else{echo "Failed";}
+        
+        return $result;     
+    }
+
+    function getPatientDistancePreference($patientId, $link) {
+        $result = NULL;
+        $sql = "CALL getPatientDistancePreference(?);";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param(
+                $stmt,
+                "i",
+                $param_patientId,
+                );
+                // Set parameters
+                $param_patientId= $patientId;
+        
+                if(mysqli_stmt_execute($stmt)){
+                    $result = mysqli_stmt_get_result($stmt);
+                }
+        }
+        else{echo "Failed";}
+        
+        return $result;     
+    }
+
+    function updateTimePreference($patientId, $data, $link) {
+        echo $data;
+        $sql = "DELETE FROM PatientTimePreference WHERE patientId =?";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param(
+                $stmt,
+                "i",
+                $param_patientId,
+                );
+                // Set parameters
+                $param_patientId = $patientId;      
+                if(mysqli_stmt_execute($stmt)){
+                    echo "Deleted Records";
+                }
+        }
+
+        $sql = "INSERT INTO PatientTimePreference VALUES (?,?)";
+
+        foreach($data as $slotId) {
+            if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param(
+                $stmt,
+                "ii",
+                $param_patientId,
+                $param_slotId,
+                );
+                // Set parameters
+                $param_patientId = $patientId;
+                $param_slotId = $slotId;
+       
+                if(mysqli_stmt_execute($stmt)){
+                    echo "Record Inserted";
+                }
+        }
+        else{echo "Update Failed";}
+    }  
+}
+
+
+function UpdateDistancePreference($patientId, $distance, $link) {
+    $sql = "CALL UpdateDistancePreference(?, ?);";
+
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param(
+            $stmt,
+            "ii",
+            $param_patientId,
+            $param_distance 
+            );
+            // Set parameters
+            $param_patientId = $patientId;
+            $param_distance = $distance;
+   
+            if(mysqli_stmt_execute($stmt)){
+                echo "Success";
+            }
+    }
+    else{echo "Update Failed";}
+}   
+
 
    ?>
