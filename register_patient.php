@@ -157,8 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Attempt to execute the prepared statement
                 if (mysqli_stmt_execute($stmt)) {
                     // Redirect to login page
-                    echo "Login Succesfull";
-                    header("location: index.php");
+                    header("location: account_created.php");
                 } else {
                     echo "Oops! Something went wrong. Please try again later. after validate success";
                 }
