@@ -115,7 +115,6 @@ function getAppt($link, $condition, $providerId) {
             $providerLatitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
             $providerLongitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
 
-            
             mysqli_stmt_bind_param(
                 $stmt,
                 "isssdd",
@@ -186,4 +185,20 @@ function getAppt($link, $condition, $providerId) {
         else{echo "Update Failed";}
     }  
 
-    ?>
+
+function getCount($providerId, $type, $link){
+    $sql = "CALL getCount(?, ?);";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param(
+                $stmt,
+                "is",
+                $param_providerId,
+                $param_type 
+                );
+                // Set parameters
+            $param_providerId = $providerId;
+            $param_type = $type;
+            mysqli_stmt_execute($stmt);
+        }
+    }
+?>
