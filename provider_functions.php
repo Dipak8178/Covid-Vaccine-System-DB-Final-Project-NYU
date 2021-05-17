@@ -187,6 +187,7 @@ function getAppt($link, $condition, $providerId) {
 
 
 function getCount($providerId, $type, $link){
+    $result = NULL;
     $sql = "CALL getCount(?, ?);";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param(
@@ -198,7 +199,11 @@ function getCount($providerId, $type, $link){
                 // Set parameters
             $param_providerId = $providerId;
             $param_type = $type;
-            mysqli_stmt_execute($stmt);
+            echo "here";
+            if(mysqli_stmt_execute($stmt)){
+                $result = mysqli_stmt_get_result($stmt);
+            }
         }
+        return $result;
     }
 ?>
