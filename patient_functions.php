@@ -228,11 +228,7 @@ require_once "config.php";
     
     function getPatientTimePreference($patientId, $link) {
         $result = NULL;
-        // $sql = "CALL getPatientTimePreference(?);";
-        $sql = "SELECT patientId, slotId, day, startTime, endTime FROM PatientTimePreference pt
-                NATURAL JOIN TimeSlot ts 
-                WHERE patientId = ?
-                ORDER BY slotId";
+        $sql = "CALL getPatientTimePreference(?);";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param(
                 $stmt,
