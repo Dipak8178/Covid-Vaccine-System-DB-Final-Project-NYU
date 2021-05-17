@@ -44,7 +44,7 @@ while($row = $result->fetch_assoc()){
                     <span>Profile</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="patient_preferences.php">
+                <a class="nav-link" href="patient_preference.php">
                 <i class="fas fa-clipboard-check"></i>
                     <span>Pereferences</span></a>
             </li>
@@ -86,8 +86,6 @@ while($row = $result->fetch_assoc()){
                                             <th>Medical Condition</th>
                                         </tr>
                                     </thead>
-
-                            
                                     <tbody>
                                         <tr>
                                             <td><input type='checkbox' name='cancer_checkbox' id="cancer_checkbox" disabled = "true" value ="Cancer" <?php if(in_array("Cancer",$medHistory)) echo "checked = 'checked'"?>/></td>
