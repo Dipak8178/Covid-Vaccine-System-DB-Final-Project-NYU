@@ -23,6 +23,9 @@ require_once "config.php";
             case 'distance':
                 updateDistancePreference($_POST['patientId'], $_POST['distance'], $link);
                 break;
+            case 'med_history':
+                uploadMedicalHistory($_POST['patientId'], $_POST['data'], $link);
+                break;
 
 
         }
@@ -270,7 +273,6 @@ require_once "config.php";
     }
 
     function updateTimePreference($patientId, $data, $link) {
-        echo $data;
         $sql = "DELETE FROM PatientTimePreference WHERE patientId =?";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param(
@@ -329,5 +331,61 @@ function UpdateDistancePreference($patientId, $distance, $link) {
     else{echo "Update Failed";}
 }   
 
+function getPatientMedicalHistory($patientId, $link){
+
+    $result = NULL;
+    $sql = "CALL GetPatientMedicalHistory(?);";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param(
+            $stmt,
+            "i",
+            $param_patientId,
+            );
+            // Set parameters
+            $param_patientId= $patientId;
+    
+            if(mysqli_stmt_execute($stmt)){
+                $result = mysqli_stmt_get_result($stmt);
+            }
+    }  
+    return $result;     
+}
+    
+function uploadMedicalHistory($patientId, $data, $link) {
+    $sql = "DELETE FROM PatientMedHistory WHERE patientId =?";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param(
+            $stmt,
+            "i",
+            $param_patientId,
+            );
+            // Set parameters
+            $param_patientId = $patientId;      
+            if(mysqli_stmt_execute($stmt)){
+                echo "Deleted Records";
+            }
+    }
+
+    $sql = "INSERT INTO PatientMedHistory(patientId, medCondition) VALUES (?,?)";
+
+    foreach($data as $medCondition) {
+        if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param(
+            $stmt,
+            "is",
+            $param_patientId,
+            $param_medCondition,
+            );
+            // Set parameters
+            $param_patientId = $patientId;
+            $param_medCondition = $medCondition;
+   
+            if(mysqli_stmt_execute($stmt)){
+                echo "Record Inserted";
+            }
+        }
+    else{echo "Update Failed";}
+    }  
+}   
 
    ?>
