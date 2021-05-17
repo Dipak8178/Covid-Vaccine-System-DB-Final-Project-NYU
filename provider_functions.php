@@ -9,7 +9,9 @@ if (isset($_POST['action'])) {
         case 'password':
             updatePassword($_POST['providerId'], $_POST['password'], $link);
             break;
-
+        case 'status_update':
+            updateStatus($_POST['patientId'], $_POST['appointmentId'], $_POST['selected'], $link);
+            break;
     }
 }
 
@@ -60,7 +62,7 @@ function getAppt($link, $condition, $providerId) {
                 $param_startTime,
             );
             // Set parameters
-            $param_providerId = $_SESSION["providerId"] ;
+            $param_providerId = $providerId;
             $param_date = $date ;
             $param_startTime = $startTime;
             // Attempt to execute the prepared statement
@@ -157,6 +159,29 @@ function getAppt($link, $condition, $providerId) {
                 if(mysqli_stmt_execute($stmt)){
                     echo "Success";
                 }
+        }
+        else{echo "Update Failed";}
+    }  
+
+    function updateStatus($patientId, $apptId, $status, $link) {
+        $sql = "CALL UpdateApptStatus(?, ?, ?);";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param(
+                $stmt,
+                "iis",
+                $param_patientId,
+                $param_apptId,
+                $param_status,
+                );
+                // Set parameters
+                $param_patientId = $patientId;
+                $param_apptId = $apptId;
+                $param_status = $status;
+       
+                if(mysqli_stmt_execute($stmt)){
+                    echo "Success";
+                }
+                else{echo "Update Failed";}
         }
         else{echo "Update Failed";}
     }  
