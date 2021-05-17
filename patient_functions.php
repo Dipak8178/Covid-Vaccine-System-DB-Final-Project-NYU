@@ -26,11 +26,28 @@ require_once "config.php";
             case 'med_history':
                 uploadMedicalHistory($_POST['patientId'], $_POST['data'], $link);
                 break;
-
-
         }
     }
-    
+    function getTimePrefCount($patientId, $link) {
+        $result = NULL;
+        $sql = "SELECT COUNT(*) FROM PatientTimePreference WHERE patientID = ?;";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param(
+                $stmt,
+                "i",
+                $param_patientId,
+                );
+                // Set parameters
+                $param_patientId= $patientId;
+        
+                if(mysqli_stmt_execute($stmt)){
+                    $result = mysqli_stmt_get_result($stmt);
+                }
+        }
+        else{echo "Failed";}
+        
+        return $result;     
+    }
 
     function acceptAppt($appointmentId, $patientId, $link) {
         // Prepare an insert statement

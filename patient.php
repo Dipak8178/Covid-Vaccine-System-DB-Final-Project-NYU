@@ -35,12 +35,12 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
 
             <li class="nav-item">
                 <a class="nav-link" href="patient_preference.php">
-                <i class="fas fa-clipboard-check"></i>
+                    <i class="fas fa-clipboard-check"></i>
                     <span>Pereferences</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="patient_med_history.php">
-                <i class="fas fa-file-medical"></i>
+                    <i class="fas fa-file-medical"></i>
                     <span>Medical History</span></a>
             </li>
         </ul>
@@ -58,14 +58,26 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                 <?php
                 $result = getApptOffer($_SESSION["patientId"], $link);
                 $result2 = getAcceptedAppt($_SESSION["patientId"], $link);
+                $result3 = getTimePrefCount($_SESSION["patientId"], $link);
 
-                if ($result->num_rows > 0) {
+                if ($result3->num_rows == 0) { ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading">Attention:</h4>
+                        <hr>
+
+                        <p>Add Your Availabity In Preference Section In Order To Recieve Vaccine Appointment Offer.</p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                } else if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                ?>
+                    ?>
                         <div class="card" style="padding:30px">
                             <div class="row">
                                 <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
-                                <i class="fas fa-bell fa-3x" style="color:red"></i>
+                                    <i class="fas fa-bell fa-3x" style="color:red"></i>
                                 </div>
                                 <div class="col-sm">
                                     <div class="card-title">
@@ -84,12 +96,12 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                                 </div>
                             </div>
                         </div>
-                <?php
+                    <?php
                     }
                     $result->free();
                 } else if ($result2->num_rows > 0) {
                     foreach ($result2 as $item) {
-                        $appointmentId = $item["appointmentId"];?>
+                        $appointmentId = $item["appointmentId"]; ?>
                         <div class="card" style="padding:30px">
                             <div class="row">
                                 <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
@@ -109,18 +121,17 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                                         <button class="btn btn-primary btn-round" name="cancel" onclick="cancel(<?php echo $appointmentId ?> )">Cancel</button>
                                     </div>
                                 </div>
-                           </div>
+                            </div>
                         </div>
                     <?php
-                        }
-                    $result2->free();
                     }
-                    else{
-                        ?>
-                        <div class="card" style="padding:30px">
+                    $result2->free();
+                } else {
+                    ?>
+                    <div class="card" style="padding:30px">
                         <div class="row">
                             <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
-                            <i class="fas fa-bell fa-3x"></i>
+                                <i class="fas fa-bell fa-3x"></i>
                             </div>
                             <div class="col-sm">
                                 <div class="card-title">
@@ -131,12 +142,12 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                             </div>
                         </div>
                     </div>
-                    <?php
-                    }
-                    ?>
-                </div>
+                <?php
+                }
+                ?>
             </div>
-      </div>
+        </div>
+    </div>
 
     <script>
         function accept(apptId) {
@@ -155,38 +166,37 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
             });
         }
 
-            function decline(apptId) {
-                $.ajax({
-                    type: "POST",
-                    url: 'patient_functions.php',
-                    data: {
-                        action: 'decline',
-                        appointmentId: apptId,
-                        patientId: <?php echo $_SESSION["patientId"] ?>
-                    },
-                    success: function() {
-                        alert("Appointment Declined");
-                        location.reload();
-                    }
-                });
-            }
+        function decline(apptId) {
+            $.ajax({
+                type: "POST",
+                url: 'patient_functions.php',
+                data: {
+                    action: 'decline',
+                    appointmentId: apptId,
+                    patientId: <?php echo $_SESSION["patientId"] ?>
+                },
+                success: function() {
+                    alert("Appointment Declined");
+                    location.reload();
+                }
+            });
+        }
 
-            function cancel(apptId) {
-                $.ajax({
-                    type: "POST",
-                    url: 'patient_functions.php',
-                    data: {
-                        action: 'cancel',
-                        appointmentId: apptId,
-                        patientId: <?php echo $_SESSION["patientId"] ?>
-                    },
-                    success: function() {
-                        alert("Appointment Cancelled");
-                        location.reload();
-                    }
-                });
-            }
-    
+        function cancel(apptId) {
+            $.ajax({
+                type: "POST",
+                url: 'patient_functions.php',
+                data: {
+                    action: 'cancel',
+                    appointmentId: apptId,
+                    patientId: <?php echo $_SESSION["patientId"] ?>
+                },
+                success: function() {
+                    alert("Appointment Cancelled");
+                    location.reload();
+                }
+            });
+        }
     </script>
 
     <?php
