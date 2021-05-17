@@ -37,8 +37,8 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                 <span>Dashboard</span></a>
         </li>
 
-        <li class="nav-item">
-                <a class="nav-link active" href="provider_appt.php">
+        <li class="nav-item active">
+                <a class="nav-link" href="provider_appt.php">
                     <i class="fas fa-user-clock"></i>
                     <span>Scheduled Appointments</span></a>
             </li>
@@ -50,9 +50,9 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
         </li>
 
         <li class="nav-item">
-            <a class="nav-link active" href="provider_profile.php">
+            <a class="nav-link" href="provider_profile.php">
                 <i class="far fa-id-card"></i>
-                <span>Provider Profile</span></a>
+                <span> Profile</span></a>
         </li>
 
     </ul>
@@ -118,8 +118,6 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                                             <button type="button" style= "margin-left:5px"class="btn btn-primary secondary" onclick="cancel(<?php echo $counter; ?>)">Cancel</button>
                                             <div>
                                             </td>
-                                            
-     
                                         </tr>
                                     <?php 
                                     $counter++;

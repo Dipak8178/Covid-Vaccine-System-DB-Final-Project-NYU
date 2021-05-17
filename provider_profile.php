@@ -32,10 +32,10 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-user-clock"></i>
-                <span>All Appointments</span></a>
-        </li>
+                <a class="nav-link" href="provider_appt.php">
+                    <i class="fas fa-user-clock"></i>
+                    <span>Scheduled Appointments</span></a>
+            </li>
 
         <li class="nav-item">
             <a class="nav-link" href="provider_add_appt.php">
@@ -43,8 +43,8 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                 <span>Add Appointment</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link active" href="provider_profile.php">
+        <li class="nav-item active">
+            <a class="nav-link" href="provider_profile.php">
                 <i class="far fa-id-card"></i>
                 <span>Profile</span></a>
         </li>

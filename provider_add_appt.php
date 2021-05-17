@@ -57,7 +57,7 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
         <li class="nav-item">
             <a class="nav-link" href="provider_profile.php">
                 <i class="far fa-id-card"></i>
-                <span>Provider Profile</span></a>
+                <span> Profile</span></a>
         </li>
 
     </ul>
