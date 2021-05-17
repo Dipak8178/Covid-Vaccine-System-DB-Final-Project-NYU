@@ -48,10 +48,9 @@ while($row = $result->fetch_assoc()){
                 <i class="fas fa-clipboard-check"></i>
                     <span>Pereferences</span></a>
             </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="patient_preferences.php">
-                <i class="fas fa-clipboard-check"></i>
+            <li class="nav-item">
+                <a class="nav-link" href="patient_med_history.php">
+                <i class="fas fa-file-medical"></i>
                     <span>Medical History</span></a>
             </li>
 
