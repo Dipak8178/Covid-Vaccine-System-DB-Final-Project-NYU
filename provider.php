@@ -15,30 +15,37 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
     exit;
 }
 
-$vaccinatedTotal = 0;
-while ($row = getCount($_SESSION["provider"], "total_vaccinated", $link)) {
-    $vaccinatedTotal = $row['count'];
-};
-
-$scheduledTotal = 0;
-while ($row = getCount($_SESSION["provider"], "total_scheduled", $link)) {
-    $scheduledTotal = $row['count']; 
-};
-
-$scheduledToday = 0;
-while ($row = getCount($_SESSION["provider"], "total_scheduled_today", $link)) {
-    $scheduledToday = $row['count'];
-};
-
-$cancelledToday = 0;
-while ($row = getCount($_SESSION["provider"], "total_cancelled_today", $link)) {
-    $cancelledToday = $row['count'];
+$vaccinatedTotal = NULL;
+$result = getCount($_SESSION["providerId"], "total_vaccinated", $link);
+foreach ($result as $item){
+    $vaccinatedTotal = $item['count'];
 }
-$totalNoShow = 0;
-while ($row = getCount($_SESSION["provider"], "total_noshows", $link)) {
-    $totalNoShow = $row['count'];
+
+$scheduledTotal = NULL;
+$result = getCount($_SESSION["providerId"], "total_scheduled", $link);
+foreach ($result as $item){
+    $scheduledTotal = $item['count'];
 }
-?>
+
+$scheduledToday = NULL;
+$result = getCount($_SESSION["providerId"], "total_scheduled_today", $link);
+foreach ($result as $item){
+    $scheduledToday = $item['count'];
+}
+
+$cancelledToday = NULL;
+$result = getCount($_SESSION["providerId"], "total_cancelled_today", $link);
+foreach ($result as $item){
+    $cancelledToday = $item['count'];
+}
+
+$totalNoShow = NULL;
+$result = getCount($_SESSION["providerId"], "total_noshows", $link);
+foreach ($result as $item){
+    $totalNoShow = $item['count'];
+}
+
+ ?>
 
 <body id="page-top">
 <style>
