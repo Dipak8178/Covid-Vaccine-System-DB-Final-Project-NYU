@@ -42,11 +42,11 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                 <span>Dashboard</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-user-clock"></i>
-                <span>All Appointments</span></a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="provider_appt.php">
+                    <i class="fas fa-user-clock"></i>
+                    <span>Scheduled Appointments</span></a>
+            </li>
 
         <li class="nav-item active">
             <a class="nav-link" href="provider_add_appt.php">
@@ -76,7 +76,7 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
             <!-- Begin Page Content -->
 
             <div class="container-fluid">
-                <h1 class="h3 mb-4 text-gray-800">Appointment Management</h1>
+            <h1 class="h4 mt-4 text-gray-800" style="justify-content: center;display: flex;">Available Appointments</h1>
 
                 <!-- DataTales Example -->
 
@@ -84,7 +84,7 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                     <div class="card-header py-3">
                         <div class="row">
                             <div class="col-sm-6">
-                                <h6 class="m-0 font-weight-bold text-primary">Appointment List</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Add Appointment</h6>
                             </div>
 
                             <div class="col-sm-6" align="right">
