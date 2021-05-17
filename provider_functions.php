@@ -199,7 +199,6 @@ function getCount($providerId, $type, $link){
                 // Set parameters
             $param_providerId = $providerId;
             $param_type = $type;
-            echo "here";
             if(mysqli_stmt_execute($stmt)){
                 $result = mysqli_stmt_get_result($stmt);
             }
