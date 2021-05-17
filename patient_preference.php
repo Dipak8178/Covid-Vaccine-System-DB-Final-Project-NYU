@@ -56,9 +56,14 @@ while($row = $result2->fetch_assoc())
                     <span>Profile</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="patient_preferences.php">
+                <a class="nav-link" href="patient_preference.php">
                 <i class="fas fa-clipboard-check"></i>
                     <span>Pereferences</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="patient_med_history.php">
+                <i class="fas fa-file-medical"></i>
+                    <span>Medical History</span></a>
             </li>
 
             
@@ -89,16 +94,16 @@ while($row = $result2->fetch_assoc())
                                 </div>
                                 <div id="editing" style="display:none">
                                 <div class="form-group row">
-                                            <label class="col-sm-2"> <strong> Distance:</strong></label>
-                                            <div class="col-sm-10" style="font-weight:normal">
-                                            <input type="text" name="neDdistance" id="newDistance" value="<?php echo $distance ?>"> miles </input>
-                                            </div>
+                                <label class="col-sm-2"> <strong> Distance:</strong></label>
+                                <div class="col-sm-10" style="font-weight:normal">
+                                <input type="text" name="neDdistance" id="newDistance" value="<?php echo $distance ?>"> miles </input>
+                                </div>
                                 </div>
                                 </div>
                                 <button class="btn btn-primary btn-round" id="edit-dist" onclick="editDist()">Edit</button>
-                        <button class="btn btn-primary btn-round" style="display:none" id="save-dist" onclick="saveDist()">Save</button>
-                        <button class="btn btn-primary btn-round" style="display:none" id="cancel-dist" onclick="cancelDist()">Cancel</button>
-                                
+                                <button class="btn btn-primary btn-round" style="display:none" id="save-dist" onclick="saveDist()">Save</button>
+                                <button class="btn btn-primary btn-round" style="display:none" id="cancel-dist" onclick="cancelDist()">Cancel</button>
+                                        
                             </div>
 
                         </div>

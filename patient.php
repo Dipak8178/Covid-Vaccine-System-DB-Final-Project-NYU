@@ -34,9 +34,14 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="patient_preferences.php">
+                <a class="nav-link" href="patient_preference.php">
                 <i class="fas fa-clipboard-check"></i>
                     <span>Pereferences</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="patient_med_history.php">
+                <i class="fas fa-file-medical"></i>
+                    <span>Medical History</span></a>
             </li>
         </ul>
         <!-- End of Sidebar -->
