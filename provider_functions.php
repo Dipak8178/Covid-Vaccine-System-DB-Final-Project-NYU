@@ -17,7 +17,7 @@ if (isset($_POST['action'])) {
 
 function getAppt($link, $condition, $providerId) {
         // Prepare an insert statement
-       $sql = "CALL ProviderAppointment (?, ?)";
+       $sql = "CALL getProviderAppointment (?, ?)";
        $result = NULL;
 
         if ($stmt = mysqli_prepare($link, $sql)) {
@@ -188,7 +188,7 @@ function getAppt($link, $condition, $providerId) {
 
 function getCount($providerId, $type, $link){
     $result = NULL;
-    $sql = "CALL getCount(?, ?);";
+    $sql = "CALL getCountProviderStat(?, ?);";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param(
                 $stmt,
