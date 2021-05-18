@@ -29,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $providerLoginAttempt = isset($_POST["Provider_Login"]);
     $patientLoginAttempt = isset($_POST["Patient_Login"]);
 
-
     // if Provider signing in
     if ($providerLoginAttempt) {
 
@@ -201,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h2 class="card-title text-center mb-4 mt-4">
                         Log In
                     </h2>
-                    <ul class="nav nav-pills mb-3 justify-content-md-center" style="border-radius: 10px;border: 2px solid #007BFF;" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills mb-3 justify-content-md-center" style="border-radius: 10px;border: 2px solid #4E73DF;" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link <?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? '' : 'active'; ?>" id="pills-patient-tab" data-bs-toggle="pill" data-bs-target="#pills-patient" type="button" role="tab" aria-controls="pills-patient" aria-selected="<?php echo (isset($providerLoginAttempt) && $providerLoginAttempt === true) ? 'false' : 'true'; ?>">Patient</button>
                         </li>
