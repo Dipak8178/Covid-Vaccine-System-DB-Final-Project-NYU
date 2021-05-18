@@ -224,7 +224,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" pattern = "[a-zA-Z\s]+" oninvalid="setCustomValidity('Name should only contain Alphabets')" onchange="try{setCustomValidity('')}catch(e){}" name="patientName" placeholder="Enter full name" class="form-control <?php echo (!empty($patientName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientName; ?>">
+                                <input type="text" pattern = "[a-zA-Z\s]+" oninvalid="setCustomValidity('Name should only contain Alphabets')" 
+                                onchange="try{setCustomValidity('')}catch(e){}" name="patientName" placeholder="Enter full name" class="form-control <?php echo (!empty($patientName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientName; ?>">
                                 <span class="invalid-feedback"><?php echo $patientName_err; ?></span>
                             </div>
                             <div class="form-group">
@@ -240,7 +241,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
-                                <input type="text" pattern = "[^<>%]+" oninvalid="setCustomValidity('Address should not contain html scripts or <>')" 
+                                <input type="text" pattern = "[^<>%?=]+" oninvalid="setCustomValidity('Address cannot have scripting text or <>, %, =, and ?')" 
                                 onchange="try{setCustomValidity('')}catch(e){}"  name="patientAddress" placeholder="Enter full address" class="form-control <?php echo (!empty($patientAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientAddress; ?>">
                                 <span class="invalid-feedback"><?php echo $patientAddress_err; ?></span>
                             </div>
