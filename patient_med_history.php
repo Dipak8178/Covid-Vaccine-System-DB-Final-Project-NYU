@@ -88,35 +88,35 @@ while($row = $result->fetch_assoc()){
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input type='checkbox' name='cancer_checkbox' id="cancer_checkbox" disabled = "true" value ="Cancer" <?php if(in_array("Cancer",$medHistory)) echo "checked = 'checked'"?>/></td>
+                                            <td><input type='checkbox' name='cancer_checkbox' id="cancer_checkbox" disabled = "true" value ="Cancer" <?php if(in_array("Cancer",$medHistory)){echo "checked = 'checked'";}?>/></td>
                                             <td>Cancer</td>
                                         </tr>
                                         <tr >
-                                            <td><input type='checkbox' name='kidney_checkbox' id="kidney_checkbox" disabled = "true" value="Cronic Kidney Disease" <?php if(in_array("Cronic Kidney Disease",$medHistory)) echo "checked = 'checked'"?>/></td>
+                                            <td><input type='checkbox' name='kidney_checkbox' id="kidney_checkbox" disabled = "true" value="Cronic Kidney Disease" <?php if(in_array("Cronic Kidney Disease",$medHistory)){echo "checked = 'checked'";}?>/></td>
                                             <td>Cronic Kidney Disease</td>
                                         </tr>
                                         <tr>
-                                            <td><input type='checkbox' name='copd_checkbox' id="copd_checkbox" disabled = "true" value="Chronic Obstructive Pulmonary Disease(COPD)" <?php if(in_array("Chronic Obstructive Pulmonary Disease(COPD)",$medHistory)) echo "checked = 'checked'"?>/></td>
+                                            <td><input type='checkbox' name='copd_checkbox' id="copd_checkbox" disabled = "true" value="Chronic Obstructive Pulmonary Disease(COPD)" <?php if(in_array("Chronic Obstructive Pulmonary Disease(COPD)",$medHistory)){echo "checked = 'checked'";}?>/></td>
                                             <td>Chronic Obstructive Pulmonary Disease(COPD)</td>
                                         </tr>
                                         <tr>
-                                            <td><input type='checkbox' name='heart_checkbox' id="heart_checkbox" disabled = "true" value="Heart Conditions" <?php if(in_array("Heart Conditions",$medHistory)) echo "checked = 'checked'"?>/></td>
+                                            <td><input type='checkbox' name='heart_checkbox' id="heart_checkbox" disabled = "true" value="Heart Conditions" <?php if(in_array("Heart Conditions",$medHistory)) {echo "checked = 'checked'";}?>/></td>
                                             <td>Heart Conditions (e.g. heart failure, coronary artery disease, cardiomyopathies)</td>
                                         </tr>
                                         <tr>
-                                            <td><input type='checkbox' name='immuno_checkbox' id="immuno_checkbox" disabled = "true" value="Immunocompromised" <?php if(in_array("Immunocompromised",$medHistory)) echo "checked = 'checked'"?> /></td>
+                                            <td><input type='checkbox' name='immuno_checkbox' id="immuno_checkbox" disabled = "true" value="Immunocompromised" <?php if(in_array("Immunocompromised",$medHistory)) {echo "checked = 'checked'";}?> /></td>
                                             <td>Immunocompromised (weakened immune system) due to solid organ transplant</td>
                                         </tr>
                                         <tr>
-                                            <td><input type='checkbox' name='obese_checkbox' id="obese_checkbox" disabled = "true" value="Obesity" <?php if(in_array("Obesity",$medHistory)) echo "checked = 'checked'"?>/></td>
+                                            <td><input type='checkbox' name='obese_checkbox' id="obese_checkbox" disabled = "true" value="Obesity" <?php if(in_array("Obesity",$medHistory)){echo "checked = 'checked'";}?>/></td>
                                             <td>Obesity (e.g. body mass index of 30kg/m2 or higher)</td>
                                         </tr>
                                         <tr>
-                                            <td><input type='checkbox' name='sickle_checkbox' id="sickle_checkbox" disabled = "true" value="Sickle Cell Disease" <?php if(in_array("Sickle Cell Disease",$medHistory)) echo "checked = 'checked'"?>/></td>
+                                            <td><input type='checkbox' name='sickle_checkbox' id="sickle_checkbox" disabled = "true" value="Sickle Cell Disease" <?php if(in_array("Sickle Cell Disease",$medHistory)) {echo "checked = 'checked'";}?>/></td>
                                             <td>Sickle cell disease</td>
                                         </tr>
                                         <tr>
-                                            <td><input type='checkbox' name='smoking_checkbox' id="smoking_checkbox" disabled = "true" value="Smoking" <?php if(in_array("Smoking",$medHistory)) echo "checked = 'checked'"?> /></td>
+                                            <td><input type='checkbox' name='smoking_checkbox' id="smoking_checkbox" disabled = "true" value="Smoking" <?php if(in_array("Smoking",$medHistory)) {echo "checked = 'checked'";}?> /></td>
                                             <td>Smoking</td>
                                         </tr>
                                         </tbody>
@@ -141,10 +141,11 @@ while($row = $result->fetch_assoc()){
         }
 
         function cancel() {
-            $("#medCondition :input").prop("disabled", true);    
-            document.getElementById('edit-time').style.display = "";
-            document.getElementById('save-time').style.display = "none";
-            document.getElementById('cancel-time').style.display = "none";
+            // $("#medCondition :input").prop("disabled", true);    
+            // document.getElementById('edit-time').style.display = "";
+            // document.getElementById('save-time').style.display = "none";
+            // document.getElementById('cancel-time').style.display = "none";
+            location.reload();
         }
 
         function save() {
