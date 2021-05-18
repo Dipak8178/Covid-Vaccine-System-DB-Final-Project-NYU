@@ -29,6 +29,14 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
 <!-- Page Wrapper -->
 <div id="wrapper">
 
+<style> 
+.card {
+    background-color: white;
+    margin-bottom:30px;
+    border: 1px solid #c1c6cb !important;
+
+}
+</style>
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark">
 
@@ -69,14 +77,14 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
         <!-- Main Content -->
         <div id="content">
 
-            <div style="justify-content: center;display: flex;">
+            <div style="justify-content: center;display: flex; margin-bottom: 20px; margin-top:10px">
                 <h3> Welcome <?php echo htmlspecialchars($_SESSION["providerName"]); ?> <h3>
             </div>
 
             <!-- Begin Page Content -->
 
             <div class="container-fluid">
-            <h1 class="h4 mt-4 text-gray-800" style="justify-content: center;display: flex;">Available Appointments</h1>
+            <h1 class="h4 text-gray-800" style="justify-content: center;display: flex;">Available Appointments</h1>
 
                 <!-- DataTales Example -->
 
@@ -92,8 +100,6 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                             </div>
                         </div>
                     </div>
-                </div>
-
 
                 <div class="card-body">
                 
@@ -120,14 +126,11 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                         </table>
                     </div>
                 </div>
+                </div>
             </div>
-
-
         </div>
     </div>
 </div>
-</div>
-
 
 <div id="addAppointment" class="modal fade" role="dialog">
     <div class="modal-dialog">
