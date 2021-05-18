@@ -115,7 +115,7 @@ foreach ($result as $item){
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <div style="justify-content: center;display: flex;" >
+                <div style="justify-content: center;display: flex; margin-bottom: 20px; margin-top:10px" >
                     <h3> Welcome <?php echo htmlspecialchars($_SESSION["providerName"]); ?> <h3>
                 </div>
                 <!-- Begin Page Content -->
