@@ -179,9 +179,11 @@ while ($row = $result2->fetch_assoc()) {
 
         function cancel() {
             $("#timePreference :input").prop("disabled", true);
-            document.getElementById('edit-time').style.display = "";
-            document.getElementById('save-time').style.display = "none";
-            document.getElementById('cancel-time').style.display = "none";
+            // document.getElementById('edit-time').style.display = "";
+            // document.getElementById('save-time').style.display = "none";
+            // document.getElementById('cancel-time').style.display = "none";
+            location.reload();
+
         }
 
         function save() {
@@ -190,8 +192,11 @@ while ($row = $result2->fetch_assoc()) {
                 checkboxes.push($(this).val());
             });
             console.log(checkboxes);
-
-            $.ajax({
+            if (checkboxes.length == 0){
+                alert("Must make a selection for Time Preference");
+            }
+            else {
+                $.ajax({
                 type: "POST",
                 url: 'patient_functions.php',
                 data: {
@@ -202,9 +207,10 @@ while ($row = $result2->fetch_assoc()) {
                 success: function(data) {
                     alert("Time Preference Updated");
                     location.reload();
-
                 }
             });
+                
+            }
         }
 
         function editDist() {
@@ -228,20 +234,25 @@ while ($row = $result2->fetch_assoc()) {
         function saveDist() {
             var newDistance = document.getElementById('newDistance').value;
             console.log(newDistance);
-            $.ajax({
-                type: "POST",
-                url: 'patient_functions.php',
-                data: {
-                    action: 'distance',
-                    patientId: <?php echo $_SESSION["patientId"] ?>,
-                    distance: newDistance
-                },
-                success: function(data) {
-                    alert("Distance Preference Updated");
-                    location.reload();
+            if (!newDistance){
+                alert("Distance Preference cannot be empty")
+            }
+            else{
+                $.ajax({
+                    type: "POST",
+                    url: 'patient_functions.php',
+                    data: {
+                        action: 'distance',
+                        patientId: <?php echo $_SESSION["patientId"] ?>,
+                        distance: newDistance
+                    },
+                    success: function(data) {
+                        alert("Distance Preference Updated");
+                        location.reload();
 
-                }
-            });
+                    }
+                });
+            }
         }
     </script>
 
