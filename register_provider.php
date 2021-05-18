@@ -192,17 +192,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" id="providerName" name="providerName" placeholder="Enter business name" class="form-control <?php echo (!empty($providerName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerName; ?>">
+                                <input type="text" pattern = "[a-zA-Z\s]+" oninvalid="setCustomValidity('Name should only contain Alphabets')" 
+                                onchange="try{setCustomValidity('')}catch(e){}" id="providerName" name="providerName" placeholder="Enter business name" 
+                                class="form-control <?php echo (!empty($providerName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerName; ?>">
                                 <span class="invalid-feedback"><?php echo $providerName_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
-                                <input type="text" id="providerAddress" name="providerAddress" placeholder="Enter full address" class="form-control <?php echo (!empty($providerAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerAddress; ?>">
+                                <input type="text" pattern = "[^<>%?=]+" oninvalid="setCustomValidity('Address cannot have scripting text or <>, %, =, and ?')" 
+                                onchange="try{setCustomValidity('')}catch(e){}" id="providerAddress" name="providerAddress" placeholder="Enter full address" class="form-control <?php echo (!empty($providerAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerAddress; ?>">
                                 <span class="invalid-feedback"><?php echo $providerAddress_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input type="tel" id="providerPhone" name="providerPhone" placeholder="Enter number only without country code" class="form-control <?php echo (!empty($providerPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerPhone; ?>">
+                                <input type="text" pattern="\d{10}" id="providerPhone" oninvalid="setCustomValidity('Enter 10 digits US Phone Number without country code')" 
+                                onchange="try{setCustomValidity('')}catch(e){}" name="providerPhone" placeholder="Enter number only without country code" 
+                                class="form-control <?php echo (!empty($providerPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $providerPhone; ?>">
                                 <span class="invalid-feedback"><?php echo $providerPhone_err; ?></span>
                             </div>
                             <div class="form-group">
