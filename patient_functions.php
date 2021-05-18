@@ -30,7 +30,7 @@ require_once "config.php";
     }
     function getTimePrefCount($patientId, $link) {
         $result = NULL;
-        $sql = "SELECT COUNT(*) FROM PatientTimePreference WHERE patientID = ?;";
+        $sql = "SELECT * FROM PatientTimePreference WHERE patientID = ?;";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param(
                 $stmt,
