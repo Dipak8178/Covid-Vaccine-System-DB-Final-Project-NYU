@@ -74,7 +74,7 @@ session_start();
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" style="position:absolute; background-color:#3c4b64!important;">
 					<a class="dropdown-item" style="color:white;" href="register_patient.php">Patient Registration</a>
-					<a class="dropdown-item" style="color:white;" href="register_patient.php">Provider Registration</a>
+					<a class="dropdown-item" style="color:white;" href="register_provider.php">Provider Registration</a>
 
 					</div>
 					</li>
