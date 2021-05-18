@@ -54,33 +54,47 @@ session_start();
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 	<nav class="navbar navbar-dark" style="background-color:#3c4b64!important;">
-		<div class="container-fluid">
+		<div class="container-fluid" style="display: inline-table;">
 			<i class="fas fa-hand-holding-medical fa-3x" style="color: white; margin-right: 5px;"></i>
 			<a class="navbar-brand" style="font:28px sans-serif">COVID VACCINE PORTAL</a>
 			<?php
 			if (!isset($_SESSION['loggedin'])) {
-			?>
+			?>	<div style="display: flex; float: inline-end;margin-right: 60px;">
 				<ul class="navbar-nav ms-auto flex" style="flex-direction: row;">
 					<li class="nav-item">
 						<a href="index.php" class="nav-link m-2 menu-item nav-active">Log In</a>
 					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link m-2 menu-item">Register</a>
+				</ul>
+				<ul class="navbar-nav ms-auto flex" style="flex-direction: row;">
+
+
+					<li class="nav-item dropdown" style="margin-top: 8px;margin-left: 8px;">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" >
+					Register
+					</a>
+					<div class="dropdown-menu dropdown-menu-right" style="position:absolute; background-color:#3c4b64!important;">
+					<a class="dropdown-item" style="color:white;" href="register_patient.php">Patient Registration</a>
+					<a class="dropdown-item" style="color:white;" href="register_patient.php">Provider Registration</a>
+
+					</div>
 					</li>
 				</ul>
+		 </div>
 
 			<?php
 			} else {
 			?>
-				<ul class="navbar-nav ms-auto flex" style="flex-direction: row;">
+			<div style="display: flex; float: inline-end;margin-right: 60px;">
+			<ul class="navbar-nav ms-auto flex" style="flex-direction: row;">
 					<li class="nav-item">
 						<a href="logout.php" class="nav-link m-2 menu-item nav-active">Log Out</a>
 					</li>
 				</ul>
+
 			<?php
 			}
 			?>
-			</form>
-		</div>
+			</div>
+			</div>
 	</nav>
 
