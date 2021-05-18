@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dob_err = "Please enter a Date of Birth.";
         $err = true;
     }
-    $patientAddress = trim($_POST["patientAddress"]);
+    $patientAddress = htmlspecialchars(trim($_POST["patientAddress"]));
     if (empty($patientAddress)) {
         $patientAddress_err = "Please enter a Address.";
         $err = true;
@@ -98,19 +98,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 /* store result */
                 mysqli_stmt_store_result($stmt);
 
-                if (mysqli_stmt_num_rows($stmt) == 1) {
+                if (mysqli_stmt_num_rows($stmt) >= 1) {
                     $patientEmail_err = "This Email is already taken.";
                     $err = true;
                 }
-            } else {
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-
+            } 
             // Close statement
             mysqli_stmt_close($stmt);
         }
 
-        if ($num_row == 0) {
+        $sql1 = "SELECT patientId FROM Patient WHERE ssn = ?";
+
+        $num_row_ssn = -1;
+
+        if ($stmt1 = mysqli_prepare($link, $sql1)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt1, "i", $ssn);
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt1)) {
+                mysqli_stmt_store_result($stmt1);
+                $num_row_ssn = mysqli_stmt_num_rows($stmt1);
+                
+                echo $num_row_ssn;
+
+                if (mysqli_stmt_num_rows($stmt1) >= 1) {
+                    $ssn_err = "There is already an account asssociated with this SSN. If this is a mistake, please email customer@support.com immediately.";
+                    $err = true;
+                }
+            } 
+            // Close statement
+            mysqli_stmt_close($stmt1);
+        }
+        
+
+        if ($num_row == 0 && $num_row_ssn == 0 ) {
 
             // Get Longitude and Latitude from patientAddress using Google Maps API
             $api_key = 'AIzaSyA3mM2cTa1pPBc73_wsR2YEkpEb-W45b8k';
@@ -203,12 +224,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" name="patientName" placeholder="Enter full name" class="form-control <?php echo (!empty($patientName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientName; ?>">
+                                <input type="text" pattern = "[a-zA-Z\s]+" oninvalid="setCustomValidity('Name should only contain Alphabets')" onchange="try{setCustomValidity('')}catch(e){}" name="patientName" placeholder="Enter full name" class="form-control <?php echo (!empty($patientName_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientName; ?>">
                                 <span class="invalid-feedback"><?php echo $patientName_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>SSN</label>
-                                <input type="text" placeholder="Enter number only" pattern="\d{9}" name="ssn" class="form-control <?php echo (!empty($ssn_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $ssn; ?>">
+                                <input type="text" placeholder="Enter number only" pattern="\d{9}" oninvalid="setCustomValidity('Enter 9 digits SSN only')" 
+                                onchange="try{setCustomValidity('')}catch(e){}" name="ssn" class="form-control <?php echo (!empty($ssn_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $ssn; ?>">
                                 <span class="invalid-feedback"><?php echo $ssn_err; ?></span>
                             </div>
                             <div class="form-group">
@@ -218,17 +240,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
-                                <input type="text" name="patientAddress" placeholder="Enter full address" class="form-control <?php echo (!empty($patientAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientAddress; ?>">
+                                <input type="text" pattern = "[^<>%]+" oninvalid="setCustomValidity('Address should not contain html scripts or <>')" 
+                                onchange="try{setCustomValidity('')}catch(e){}"  name="patientAddress" placeholder="Enter full address" class="form-control <?php echo (!empty($patientAddress_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientAddress; ?>">
                                 <span class="invalid-feedback"><?php echo $patientAddress_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input type="text" pattern="\d{10}" name="patientPhone" placeholder="Enter number only without country code" class="form-control <?php echo (!empty($patientPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientPhone; ?>">
+                                <input type="text" pattern="\d{10}" name="patientPhone" oninvalid="setCustomValidity('Enter 10 digits US Phone Number without country code')" 
+                                onchange="try{setCustomValidity('')}catch(e){}" placeholder="Enter number only without country code" class="form-control <?php echo (!empty($patientPhone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $patientPhone; ?>">
                                 <span class="invalid-feedback"><?php echo $patientPhone_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <label>Distance Preference</label>
-                                <input type="text" pattern="\d{1,2}" placeholder="Enter maximum distance you are willing to travel to get vaccinated (1-99 miles)" name="distancePreference" class="form-control <?php echo (!empty($distancePreference_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $distancePreference; ?>">
+                                <input type="text" pattern="\d{1,2}" oninvalid="setCustomValidity('Enter between 1 to 99 miles')"
+                                placeholder="Enter maximum distance you are willing to travel to get vaccinated (1-99 miles)"
+                                onchange="try{setCustomValidity('')}catch(e){}" name="distancePreference" class="form-control <?php echo (!empty($distancePreference_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $distancePreference; ?>">
                                 <span class="invalid-feedback"><?php echo $distancePreference_err; ?></span>
                             </div>
 
