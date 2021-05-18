@@ -101,9 +101,9 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                         <table class="table table-bordered" id="appointment_table">
                             <thead>
                                 <tr>
-                                    <th>Patient Name</th>
                                     <th>Appointment Date</th>
                                     <th>Appointment Time</th>
+                                    <th>Appointment Status</th>
                                 </tr>
                             </thead>
                             <tbody> <?php if (!empty($result)) { ?>
