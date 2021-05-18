@@ -111,7 +111,7 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                                     <?php foreach ($result as $item) { ?>
                                         <tr>
                                             <td><?php echo $item['date']; ?></td>
-                                            <td><?php echo $item['startTime']; ?></td>
+                                            <td> <?php echo date("g:i a", strtotime($item["startTime"])) ?></td>
                                             <td><?php echo 'Available'; ?></td>
                                         </tr>
                                     <?php } ?>
@@ -160,8 +160,8 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" name="addApptSub" id="addApptSub" class="btn btn-primary" value="Add" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="addApptSub" id="addApptSub" class="btn btn-primary" value="Add" />
+                    <button type="button" class="btn btn-secondary" id = "cancel" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </form>
@@ -184,6 +184,31 @@ if (isset($_SESSION["patient"]) && $_SESSION["patient"] === true) {
         $('#addAppt')[0].reset();
         $('#addAppt').parsley().reset();
         $('#addAppt').modal('show');
+    });
+
+    $('#addApptSub').click(function(e) {
+        var date =  document.getElementById('appointmentDate').value;
+        var time =  document.getElementById('startTime').value;
+
+        if (!time || !date){
+            alert("Date and Start Time cannot be be empty");
+            e.preventDefault();
+            return false 
+        }
+
+        if (time < '08:00' || time > '20:00'){
+            alert("Appointment Start Time must be between 8:00 am and 8:00 pm");
+            e.preventDefault();
+            return false 
+        }
+
+    });
+
+    $('#cancel').click(function(e) {
+        $('.modal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+
     });
 
     $('#appointment-form').on('submit', function(event){
