@@ -13,7 +13,14 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
     exit;
 }
 ?>
+<style> 
+.card {
+    background-color: white;
+    margin-bottom:30px;
+    border: 1px solid #c1c6cb !important;
 
+}
+</style>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -52,20 +59,19 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
             <!-- Main Content -->
             <div id="content">
 
-                <div style="justify-content: center;display: flex;">
+                <div style="justify-content: center;display: flex; margin-bottom: 20px; margin-top:10px">
                     <h3> Welcome <?php echo htmlspecialchars($_SESSION["patientName"]); ?> <h3>
                 </div>
                 <?php
                 $result = getApptOffer($_SESSION["patientId"], $link);
                 $result2 = getAcceptedAppt($_SESSION["patientId"], $link);
                 $result3 = getTimePrefCount($_SESSION["patientId"], $link);
-
+ 
                 if ($result3->num_rows == 0) { ?>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <h4 class="alert-heading">Attention:</h4>
+                        <h3 class="alert-heading"><b>Attention:</b></h3>
                         <hr>
-
-                        <p>Add Your Availabity In Preference Section In Order To Recieve Vaccine Appointment Offer.</p>
+                        <p style="font-size:16px">Add Your Availabity In Preference Section In Order To Recieve Vaccine Appointment Offer.</p>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -74,7 +80,7 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                 } else if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                     ?>
-                        <div class="card" style="padding:30px">
+                        <div class="card shadow" style="padding:30px;">
                             <div class="row">
                                 <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
                                     <i class="fas fa-bell fa-3x" style="color:red"></i>
@@ -96,16 +102,17 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                                 </div>
                             </div>
                         </div>
+
                     <?php
                     }
                     $result->free();
                 } else if ($result2->num_rows > 0) {
                     foreach ($result2 as $item) {
                         $appointmentId = $item["appointmentId"]; ?>
-                        <div class="card" style="padding:30px">
+                        <div class="card shadow" style="padding:30px;">
                             <div class="row">
                                 <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
-                                    <i class="fas fa-tasks fa-3x"></i>
+                                    <i class="fas fa-tasks fa-3x" style="color:green"></i>
                                 </div>
                                 <div class="col-sm">
                                     <div class="card-title">
@@ -128,7 +135,7 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                     $result2->free();
                 } else {
                     ?>
-                    <div class="card" style="padding:30px">
+                    <div class="card shadow" style="padding:30px;">
                         <div class="row">
                             <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
                                 <i class="fas fa-bell fa-3x"></i>
@@ -145,8 +152,67 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                 <?php
                 }
                 ?>
-            </div>
-        </div>
+                    <div class="card shadow" style="padding:30px;">
+                            <div class="row">
+                                <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
+                                    <i class="fas fa-question fa-3x" style="color:black"></i>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="card-title">
+
+                                        <h4 style="margin-top:5px"><strong>Latest Vaccination Eligibility Information</strong></h4>
+                                    </div>
+                                    <div class="table-responsive">
+                                <table class="table table-bordered" id="medCondition">
+                                    <thead>
+                                        <tr>
+                                            <th>Group Number</th>
+                                            <th>Eligibility Requirement</th>
+                                            <th>Date Elibigle for Vaccine</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr>
+                                    <td> 1</td>
+                                    <td >
+                                    <p style="text-align: left;">Individuals with the following underlying Medical Conditions:</p>
+                                    <ul>
+                                    <li style="text-align: left;">Cancer</li>
+                                    <li style="text-align: left;">Cronic Kidney Disease</li>
+                                    <li style="text-align: left;">Chronic Obstructive Pulmonary Disease(COPD)</li>
+                                    <li style="text-align: left;">Heart Conditions(e.g. heart failure, coronary artery disease, cardiomyopathies)</li>
+                                    <li style="text-align: left;">Immunocompromised(weakened immune system) due to solid organ transplant</li>
+                                    <li style="text-align: left;">Obesity(e.g. body mass index of 30kg/m2 or higher)</li>
+                                    <li style="text-align: left;">Sickle cell disease</li>
+                                    <li style="text-align: left;">Smoking</li>
+                                    </ul>
+                                    </td>
+                                    <td style="text-align: center;">04/01/2021</td>
+                                    </tr>
+                                    <tr>
+                                    <td style="text-align: center; ">2</td>
+                                    <td style="text-align: left; ">Individuals aged 65 years and older</td>
+                                    <td style="text-align: center;">05/01/2021</td>
+                                    </tr>
+                                    <tr >
+                                    <td style="text-align: center;">3</td>
+                                    <td style=" text-align: left;">Individuals aged 45 years and older</td>
+                                    <td style=" text-align: center;">05/15/2021</td>
+                                    </tr>
+                                    <tr >
+                                    <td style="text-align: center">4</td>
+                                    <td style="text-align: left; ">Individuals aged 18 yeas and older</td>
+                                    <td style=" text-align: center;">06/01/2021</td>
+                                    </tr>
+                                    </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+          </div>
     </div>
 
     <script>

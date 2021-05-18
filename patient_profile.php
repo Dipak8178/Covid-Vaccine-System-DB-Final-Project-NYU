@@ -16,6 +16,14 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
     exit;
 }
 ?>
+<style> 
+.card {
+    background-color: white;
+    margin-bottom:30px;
+    border: 1px solid #c1c6cb !important;
+
+}
+</style>
 
 <body id="page-top">
 
@@ -60,7 +68,7 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
             <!-- Main Content -->
             <div id="content">
 
-                <div style="justify-content: center;display: flex;">
+                <div style="justify-content: center;display: flex; margin-bottom: 20px; margin-top:10px">
                     <h3> Welcome <?php echo htmlspecialchars($_SESSION["patientName"]); ?> <h3>
                 </div>
 
@@ -68,7 +76,7 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                 $result = getPatientDetail($_SESSION["patientId"], $link);
                 if (!empty($result)) {
                     foreach ($result as $item) { ?>
-                        <div class="card" style="padding:30px">
+                        <div class="card shadow" style="padding:30px">
                             <div class="row">
                                 <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
                                     <i class="fas fa-user fa-3x"></i>
@@ -188,10 +196,7 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
         }
 
         function cancel() {
-            document.getElementById('editing').style.display = "none";
-            document.getElementById('readonly').style.display = "block";
-            document.getElementById('reset-password').style.display = "";
-
+            location.reload()
         }
 
         function resetPassword() {
@@ -218,10 +223,21 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
 
             if (email == "" || address == "" || phone == "" || dob == ""){
                 alert("All fields must be completed.");
+                return false
 
             }
-            
-            $.ajax({
+
+            else if (!ValidateEmail(email)){
+                return false
+            }
+            else if (!ValidateAddress(address)){
+                return false
+            }
+            else if (!ValidatePhone(phone)){
+                return false
+            }
+            else{
+                $.ajax({
                 type: "POST",
                 url: "patient_functions.php",
                 data: {
@@ -238,34 +254,64 @@ if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
                 }
             });
         }
+    }
+    function ValidateEmail(email) 
+        {
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
+        {
+            return (true)
+        }
+            alert("You have entered an invalid email address!")
+            return (false)
+        }
 
-        function savePass() {
-            var password = document.getElementById("patientPassword").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
+    function ValidateAddress(address) 
+        {
+        if (/[<>=%\?]/.test(address))
+        {
+            alert("Address cannot have scripting text or <>, %, =, and ?")
+            return (false)
+        }
+            return (true)
+        }
 
-            if (password!=confirmPassword){
-                alert("Password Donot Match");
-            }
-            else if (password == "" || confirmPassword == ""){
-                alert("All fields must be completed.");
+    function ValidatePhone(phone) 
+        {
+        if (/[0-9]{10}/.test(phone))
+        {
+            return (true)
+        }
+            alert("Enter 10 Digit US Phone Number")
+            return (false)
+        }
 
-            }
-            else {
-                $.ajax({
-                    type: "POST",
-                    url: "patient_functions.php",
-                    data: {
-                        action: 'password',
-                        patientId: <?php echo $_SESSION["patientId"] ?>,
-                        password: password,
-                    },
-                    success: function() {
-                        alert("Password Changed");
-                        location.reload();
-                    }
-                });
-            }
-        };
+    function savePass() {
+        var password = document.getElementById("patientPassword").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password!=confirmPassword){
+            alert("Password Donot Match");
+        }
+        else if (password == "" || confirmPassword == ""){
+            alert("All fields must be completed.");
+
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "patient_functions.php",
+                data: {
+                    action: 'password',
+                    patientId: <?php echo $_SESSION["patientId"] ?>,
+                    password: password,
+                },
+                success: function() {
+                    alert("Password Changed");
+                    location.reload();
+                }
+            });
+        }
+    };
     </script>
 
     <?php

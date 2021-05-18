@@ -33,6 +33,15 @@ while ($row = $result2->fetch_assoc()) {
 
 <body id="page-top">
 
+<style> 
+.card {
+    background-color: white;
+    margin-bottom:30px;
+    border: 1px solid #c1c6cb !important;
+
+}
+</style>
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -73,10 +82,10 @@ while ($row = $result2->fetch_assoc()) {
 
             <!-- Main Content -->
             <div id="content">
-                <div style="justify-content: center;display: flex;">
+                <div style="justify-content: center;display: flex; margin-bottom: 20px; margin-top:10px">
                     <h3> Welcome <?php echo htmlspecialchars($_SESSION["patientName"]); ?> <h3>
                 </div>
-                <div class="card" style="padding:30px">
+                <div class="card shadow" style="padding:30px">
                     <div class="row">
                         <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
                             <i class="fas fa-road fa-3x"></i>
@@ -107,7 +116,7 @@ while ($row = $result2->fetch_assoc()) {
                     </div>
                 </div>
 
-                <div class="card" style="padding:30px; margin-top:30px">
+                <div class="card shadow" style="padding:30px; margin-top:30px">
                     <div class="row">
                         <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
                             <i class="far fa-clock fa-3x"></i>

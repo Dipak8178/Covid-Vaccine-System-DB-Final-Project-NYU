@@ -22,6 +22,14 @@ while($row = $result->fetch_assoc()){
 ?>
 
 <body id="page-top">
+<style> 
+.card {
+    background-color: white;
+    margin-bottom:30px;
+    border: 1px solid #c1c6cb !important;
+
+}
+</style>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -63,11 +71,11 @@ while($row = $result->fetch_assoc()){
             <!-- Main Content -->
             <div id="content">
 
-                <div style="justify-content: center;display: flex;">
+                <div style="justify-content: center;display: flex; margin-bottom: 20px; margin-top:10px">
                     <h3> Welcome <?php echo htmlspecialchars($_SESSION["patientName"]); ?> <h3>
                 </div>
 
-                <div class="card" style="padding:30px; margin-top:30px">
+                <div class="card shadow" style="padding:30px; margin-top:30px">
                     <div class="row">
                         <div class="col" style="flex-basis: 0; flex-grow: 0; max-width: 100%;">
                         <i class="fas fa-file-medical fa-3x"></i>                        
@@ -101,15 +109,15 @@ while($row = $result->fetch_assoc()){
                                         </tr>
                                         <tr>
                                             <td><input type='checkbox' name='heart_checkbox' id="heart_checkbox" disabled = "true" value="Heart Conditions" <?php if(in_array("Heart Conditions",$medHistory)) {echo "checked = 'checked'";}?>/></td>
-                                            <td>Heart Conditions (e.g. heart failure, coronary artery disease, cardiomyopathies)</td>
+                                            <td>Heart Conditions(e.g. heart failure, coronary artery disease, cardiomyopathies)</td>
                                         </tr>
                                         <tr>
                                             <td><input type='checkbox' name='immuno_checkbox' id="immuno_checkbox" disabled = "true" value="Immunocompromised" <?php if(in_array("Immunocompromised",$medHistory)) {echo "checked = 'checked'";}?> /></td>
-                                            <td>Immunocompromised (weakened immune system) due to solid organ transplant</td>
+                                            <td>Immunocompromised(weakened immune system) due to solid organ transplant</td>
                                         </tr>
                                         <tr>
                                             <td><input type='checkbox' name='obese_checkbox' id="obese_checkbox" disabled = "true" value="Obesity" <?php if(in_array("Obesity",$medHistory)){echo "checked = 'checked'";}?>/></td>
-                                            <td>Obesity (e.g. body mass index of 30kg/m2 or higher)</td>
+                                            <td>Obesity(e.g. body mass index of 30kg/m2 or higher)</td>
                                         </tr>
                                         <tr>
                                             <td><input type='checkbox' name='sickle_checkbox' id="sickle_checkbox" disabled = "true" value="Sickle Cell Disease" <?php if(in_array("Sickle Cell Disease",$medHistory)) {echo "checked = 'checked'";}?>/></td>
