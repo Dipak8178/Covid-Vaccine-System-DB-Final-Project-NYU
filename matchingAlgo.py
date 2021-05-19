@@ -19,8 +19,8 @@ def getAppt():
         
         seen = set()
         matched = []
-
-        for patientId, apptId, pg, dist, rowrank in cursor:
+        
+        for apptId, patientId, pg, dist, rowrank in cursor:
             if (pg == '1'):
                 if patientId not in pg_1:
                     pg_1[patientId] = {apptId: int(rowrank)}
@@ -85,37 +85,37 @@ def getAppt():
 
 if __name__ == "__main__":
     matchings = getAppt()
-    print(matchings)
-    try:
-        connection = mysql.connector.connect(host='localhost',
-                                            database='CovidVaccineSystem',
-                                            user='root',
-                                            password='Fiffat123!')
-        cursor = connection.cursor()
-        query = "INSERT INTO PatientAppointmentOffer(appointmentId, patientId, status, dateOfferSent) VALUES"
-        
+    if len(matchings) > 0:
+        try:
+            connection = mysql.connector.connect(host='localhost',
+                                                database='CovidVaccineSystem',
+                                                user='root',
+                                                password='Fiffat123!')
+            cursor = connection.cursor()
+            query = "INSERT INTO PatientAppointmentOffer(appointmentId, patientId, status, dateOfferSent) VALUES"
+            
 
-        now = datetime.now()
-        formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
+            now = datetime.now()
+            formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
 
-        for i in range(len(matchings)):
-            if i < len(matchings)-1:
-                query = query + "('"+str(matchings[i][1])+"', '"+ str(matchings[i][0]) + "', 'notified', '"+ formatted_date +"'),"
-            else:
-                query = query + "('"+str(matchings[i][1])+"', '"+ str(matchings[i][0]) + "', 'notified', '"+ formatted_date +"');"
+            for i in range(len(matchings)):
+                if i < len(matchings)-1:
+                    query = query + "('"+str(matchings[i][1])+"', '"+ str(matchings[i][0]) + "', 'notified', '"+ formatted_date +"'),"
+                else:
+                    query = query + "('"+str(matchings[i][1])+"', '"+ str(matchings[i][0]) + "', 'notified', '"+ formatted_date +"');"
 
-        print(query)
+            print(query)
 
-        cursor.execute(query)
-        connection.commit()
+            cursor.execute(query)
+            connection.commit()
 
 
-    except Error as e:
-        print("Error while connecting to MySQL", e)
-    finally:
-        if connection.is_connected():
-            cursor.close()
-            connection.close()
-            print("MySQL connection is closed")
+        except Error as e:
+            print("Error while connecting to MySQL", e)
+        finally:
+            if connection.is_connected():
+                cursor.close()
+                connection.close()
+                print("MySQL connection is closed")
 
 
