@@ -109,7 +109,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if ($num_row == 0) {
             // Get Longitude and Latitude from providerAddress using Google Maps API
-            $api_key = "AIzaSyA3mM2cTa1pPBc73_wsR2YEkpEb-W45b8k";
             $address = str_replace(" ", "+", $providerAddress);
             $json = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=$address&key=$api_key");
 
