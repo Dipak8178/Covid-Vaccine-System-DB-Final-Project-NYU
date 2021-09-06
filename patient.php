@@ -8,8 +8,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 // stop providers from accessing patient page
-if (isset($_SESSION["provider"]) && $_SESSION["provider"] === true) {
-    header("location: provider.php");
+if (isset($_SESSION["type"]) && $_SESSION["type"] === "provider"){
+    header("location: patient.php");
     exit;
 }
 ?>
